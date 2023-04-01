@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SerMais.Data;
+
 namespace SerMais
 {
     public class Program
@@ -8,6 +11,10 @@ namespace SerMais
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //conexão com o banco
+            builder.Services.AddEntityFrameworkSqlServer()
+                .AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
 
             var app = builder.Build();
 
