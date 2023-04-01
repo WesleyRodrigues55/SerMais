@@ -9,5 +9,6 @@ namespace SerMais.Data
         {
         }
         public DbSet<UsuarioModel> USUARIO { get; set; }
+        public DbSet<PessoaModel> PESSOA { get; set; }
     }
 }
