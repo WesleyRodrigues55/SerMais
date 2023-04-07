@@ -8,7 +8,17 @@ namespace SerMais.Data
         public BancoContext(DbContextOptions<BancoContext>options): base(options) 
         {
         }
+
+        public DbSet<ProfissionalModel> PROFISSIONAL { get; set; }
+        public DbSet<TipoProfissionalModel> TIPO_PROFISSIONAL { get; set; }
         public DbSet<UsuarioModel> USUARIO { get; set; }
-        public DbSet<PessoaModel> PESSOA { get; set; }
+
+        //public DbSet<PortfolioModel> PORTFOLIO { get; set; }
+
+        public DbSet<ClienteModel> CLIENTE { get; set; }
+        public DbSet<AgendamentoModel> AGENDAMENTO { get; set;}
+        public DbSet<ConsultaModel> CONSULTA { get; set; }
+        public DbSet<TipoConsultaModel> TIPO_CONSULTA_MODEL { get; set; }
+
     }
 }

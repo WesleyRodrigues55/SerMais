@@ -2,29 +2,36 @@
 
 namespace SerMais.Models
 {
-    public class PessoaModel
+    public class ProfissionalModel
     {
         [Key]
         public int ID { get; set; }
-        public int CRP { get; set; }
 
-        [StringLength(100)]
+        // DADOS PESSOAIS
+        public string CRP { get; set; }
+
+        [StringLength(50)]
         public string NOME { get; set; }
 
-        [StringLength(100)]
-        public string EMAIL { get; set; }
+        [StringLength(50)]
+        public string SOBRENOME { get; set; }
+
+        [StringLength(200)]
+        public string NOME_COMPLETO { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DT_NASCIMENTO { get; set; }
 
+        [StringLength(100)]
+        public string EMAIL { get; set; }
+
         [StringLength(50)]
-        public string CELULAR { get; set; }
+        public string TELEFONE { get; set; }
 
         [StringLength(14)]
         public string CPF { get; set; }
 
-        [StringLength(12)]
-        public string RG { get; set; }
+        // ENDEREÇO
 
         [StringLength(10)]
         public string CEP { get; set; }
@@ -44,7 +51,14 @@ namespace SerMais.Models
         [StringLength(100)]
         public string COMPLEMENTO { get; set; }
 
+        public string OBSERVACAO { get; set; }
+
         public int ATIVO { get; set; }
 
+        public int NIVEL { get; set; }
+
+        public int STATUS { get; set; }
+
+        public TipoProfissionalModel ID_TIPO_PROFISSIONAL { get; set; }
     }
 }

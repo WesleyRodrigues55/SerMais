@@ -4,6 +4,7 @@ namespace SerMais.Models
 {
     public class UsuarioModel
     {
+        [Key]
         public int ID { get; set; }
  
         [StringLength(50)]
@@ -12,12 +13,12 @@ namespace SerMais.Models
         [StringLength(50)]
         public string SENHA { get; set; }
 
+        public int POLITICA { get; set; }
+
         public int ATIVO { get; set; }
 
-        public int NIVEL { get; set; }
-
         //relação
-        public PessoaModel PessoaModel { get; set; }
+        public ProfissionalModel ID_PROFISSIONAL { get; set; }
 
     }
 
