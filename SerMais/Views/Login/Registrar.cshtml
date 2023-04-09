@@ -1,0 +1,111 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/registrar.css" />
+}
+
+@Html.Partial("_Navegacao")
+
+<main class="mb-5">
+    <div class="container">
+        <h1>Passo a passo para um profissional fazer parte da SerMais</h1>
+
+        @*start row*@
+        <div class="row">
+            <div class="col-md-4 text-center my-3">
+                <div class="p-4 box-card">
+                    <div class="box-sequencia">1</div>
+                    <p class="text-green01 mt-2">Envie seus dados básicos pelo formulário abaixo</p>
+                    <p>cadastre-se com seus dados pessoais e seus dados de contato, e não esqueça do seu CRP.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-center my-3">
+                <div class="p-4 box-card">
+                    <div class="box-sequencia">2</div>
+                    <p class="text-green01 mt-2">Exponha em um campo de observação porque pretende utilizar a plataforma.</p>
+                    <p>Explique de forma clara e coerente o porque gostaria de utilizar a plataforma SerMais e como isso te ajudaria.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-center my-3">
+                <div class="p-4 box-card">
+                    <div class="box-sequencia">3</div>
+                    <p class="text-green01 mt-2">Nos envie seu currículo, analisaremos e se tudo der certo, você fará parte da SerMais.</p>
+                    <p>Nossa equipe avaliará seu currículo e dentro de dois dias retornaremos se seu perfil foi aceito na plataforma.</p>
+                </div>
+            </div>
+        </div>
+        @*end row*@
+
+        <hr />
+
+
+        <form asp-controller="" asp-action="" method="post">
+
+            <p><b>Dados Pessoas</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Nome..."/>
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Sobrenome..." />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="E-mail..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="date" class="form-control input-form input-login" />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Celular..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="CPF..." />
+                </div>
+            </div>
+            @*end row*@
+
+            <p><b>Endereço</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="CEP..."/>
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Rua..." />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Bairro..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Cidade..." />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Número..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" class="form-control input-form input-login" placeholder="Complemento..." />
+                </div>
+            </div>
+            @*end row*@
+
+        </form>
+
+
+    </div>
+</main>
+
+@Html.Partial("_Rodape")
+
+
+

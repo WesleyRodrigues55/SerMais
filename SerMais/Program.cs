@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SerMais.Data;
+using SerMais.Repositorio;
 
 namespace SerMais
 {
@@ -15,6 +16,8 @@ namespace SerMais
             //conexão com o banco
             builder.Services.AddEntityFrameworkSqlServer()
                 .AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+            builder.Services.AddScoped<IProfissionalRepositorio, ProfissionalRepositorio>();
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             var app = builder.Build();
 

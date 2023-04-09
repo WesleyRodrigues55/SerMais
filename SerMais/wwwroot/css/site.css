@@ -1,18 +1,147 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    height: 100%;
+}
+
+/*
+    Tipografia
+*/
+
+h1 {
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+.h2-white {
+    color: #fff;
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+    color: #36AB82;
+}
+
+p, a {
+    color: #3E514A;
+}
+
+a:hover {
+    color: #36AB82;
+}
+
+/*
+    Icons
+*/
+
+.icon-login {
+    font-size: 24px;
+    margin-left: -36px;
+    color: #3E514A;
+}
+
+.icon-password:hover {
+    cursor: pointer;
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+    display: none;
+}
+
+/*
+    Inputs
+*/
+.input-login {
+    background-color: #8de8c875;
+    border: none;
+    padding: 8px 16px;
+}
+
+.input-login:focus {
+    background-color: #8DE8C8;
+    outline: none;
+    box-shadow: 1px 1px 5px rgba(25,25,25, 0.25);
+    border: none;
+}
+
+/*
+    Botões
+*/
+
+.botao {
+    background-color: #36AB82;
+    color: #FFF;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(25,25,25, 0.25);
+    padding: 12px 0;
+    transition: all 1s;
+}
+
+.botao-outline {
+    background-color: transparent;
+    color: #3E514A;
+    border: 1px solid #3E514A;
+    box-shadow: 1px 1px 5px rgba(25,25,25, 0.25);
+    border-radius: 10px;
+}
+
+.botao:focus,
+.botao-outline:focus {
+    outline: none;
+    border: 1px solid #3E514A;
+    box-shadow: 1px 1px 5px rgba(25,25,25, 0.25);
+}
+
+.botao:hover {
+    background-color: #329A76;
+    color: #FFF;
+    transition: all 1s;
+}
+
+.botao-outline:hover {
+    background-color: #36AB82;
+    color: #FFF;
+}
+
+/*
+    box sessão login
+*/
+
+.box-2-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 
+    Media Queries
+*/
+
+@media screen and (max-width: 991px) {
+    .box-1-login {
+        padding: 0 32px;
+    }
+
+    .box-2-login {
+        display: none;
+    }
 }

@@ -1,0 +1,83 @@
+﻿@model List<ProfissionalModel>
+@{
+    ViewData["Title"] = "Área do Adm";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Área do adm</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">CRP</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Observação</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null && Model.Any())
+            {
+                foreach(ProfissionalModel profissional in Model)
+                {
+                    <tr>
+                        <th scope="row">@profissional.CRP</th>
+                        <td>@profissional.NOME</td>
+                        <td>@profissional.EMAIL</td>
+                        <td>@profissional.TELEFONE</td>
+                        <td>@profissional.OBSERVACAO</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a role="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmar" data-id="@profissional.ID">Info</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="6">Não existem Dados!!!</td></tr>
+            }
+
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   
+                    Deseja aceitar ou recusar esse Profissional?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form asp-controller="Administrador" asp-action="Aceitar" method="post">
+                        <input type="hidden" id="modal-id" name="modalId" value="" />
+                        <button class="btn btn-success" type="submit">aceitar</button>
+                    </form>
+                    <form asp-controller="Administrador" asp-action="Recusar" method="post">
+                        <input type="hidden" id="modal-id1" name="modalId" value="" />
+                        <button class="btn btn-success" type="submit">Recusar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#confirmar').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botão que acionou o modal
+        var id = button.data('id'); // Extrai o ID da linha clicada
+        var modal = $(this);
+        modal.find('#modal-id').val(id);// Atualiza o campo oculto com o ID da linha clicada
+        modal.find('#modal-id1').val(id);// Atualiza o campo oculto com o ID da linha clicada
+        console.log(id);
+    })
+</script>

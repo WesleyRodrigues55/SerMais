@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@*É usado para adicionar uma folha de estilo apenas para essa View, e é referenciado no _Layout*@
+@section CSS {
+    <link rel="stylesheet" href="~/css/esqueci-senha.css" />
+}
+
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-12 col-lg-7 d-flex justify-content-center align-items-center box-1-login">
+                <div class="text-center">
+                    <h1> Esqueci minha Senha </h1>
+                    <p> Coloque abaixo seu email ou usuário de login e receba um link de recuperação em seu email.</p>
+                    <div class="esqueci_minha_senha">
+                        
+                        <div class="mb-3 d-flex align-items-center">
+                            <input class="w-100 form-control input-login" type="text" placeholder="E-mail" />
+                            <i class="bi bi-envelope-fill icon-login"></i>
+                        </div>
+
+                        <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Recuperar Senha" />
+                        <a asp-controller="Login" asp-action="Index" class="mb-3 w-100 btn btn-rounded-1 botao-outline d-flex align-items-center justify-content-center">
+                            <i class="bi bi-arrow-left icon-login" style="margin-right: 24px"></i>
+                            Voltar
+                        </a>
+
+                        <a asp-controller="Login" asp-action="Registrar"> Ainda não possui cadastro? Crie uma conta!</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-12 col-lg-5 box-2-login">
+                <div class="logo" style="text-align:center">
+                    <img src="~/img/logoSerMais.png" style="text-align:center" />
+                    <br />
+                    <br />
+                    <h2 class="h2-white my-4">Esqueceu sua <br /> senha de Cadastro?</h2>
+                    <img src="~/img/EsqueciSenha_Logo.png" alt="EsqueciSenha" style="width: 300px" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
