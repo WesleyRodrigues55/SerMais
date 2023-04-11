@@ -30,6 +30,12 @@ namespace SerMais.Controllers
             return View(viewModel);
         }
 
+        public IActionResult RecuperarSenha()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
