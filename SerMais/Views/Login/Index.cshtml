@@ -15,28 +15,32 @@
             <div class="col-md-12 col-lg-7 d-flex justify-content-center align-items-center box-1-login">
                 <div class="text-center">
                     <h1>Acesse sua Conta</h1>
+                   
                     <div class="usuario-senha">
-                        <div class="mb-3 d-flex align-items-center">
-                            <input class="w-100 form-control input-login" type="text" placeholder="Usuario" />
-                            <i class="bi bi-person-fill icon-login"></i>
-                        </div>
+                        <form asp-controller="Login" asp-action="ValidaLogin" method="post">
+                            <div class="mb-3 d-flex align-items-center">
+                                <input class="w-100 form-control input-login" type="text" placeholder="Usuario" />
+                                <i class="bi bi-person-fill icon-login"></i>
+                            </div>
 
-                        <div class="mb-3 d-flex align-items-center">
-                            <input class="mb- w-100 form-control input-login" id="password" type="password" placeholder="Senha" />
-                            <i class="bi bi-eye-slash-fill icon-login icon-password"></i>
-                        </div>
+                            <div class="mb-3 d-flex align-items-center">
+                                <input class="mb- w-100 form-control input-login" id="password" type="password" placeholder="Senha" />
+                                <i class="bi bi-eye-slash-fill icon-login icon-password"></i>
+                            </div>
 
-                        <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Entrar" />
-
+                            <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Entrar" />
+                        </form>
                         <div class="esqueci-senha">
                             <a asp-controller="Login" asp-action="EsqueceuSenha"> Esqueci minha senha! </a>
                             <br /><a asp-controller="Login" asp-action="Registrar"> Ainda não possui cadastro? Crie uma conta! </a>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-12 col-lg-5 box-2-login">
                 <div class="logo" style="text-align: center">
+
                     <img src="~/img/logoSerMais.png" style="text-align:center" />
                     <br />
                     <br />

@@ -18,6 +18,14 @@ namespace SerMais.Controllers
 
         public IActionResult Index()
         {
+            // Recupera um valor da sessão do usuário
+            string username = HttpContext.Session.GetString("username");
+
+            if (username == null)
+            {
+                return RedirectToAction("SemAutorizacao", "Autorizacao");
+            }
+
             List<ProfissionalModel> profissionais = _profissionalRepositorio.BuscarTodos();
             return View(profissionais);
         }

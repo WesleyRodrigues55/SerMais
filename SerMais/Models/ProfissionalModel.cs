@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SerMais.Models
 {
@@ -53,6 +54,7 @@ namespace SerMais.Models
 
         public string OBSERVACAO { get; set; }
 
+        [NotMapped]
         public IFormFile FILE { set; get; }
 
         public int ATIVO { get; set; }

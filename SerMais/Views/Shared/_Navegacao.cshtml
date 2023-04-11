@@ -1,10 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@*Injeção que vem do Programa.cs para usar diretamente na Partial _Navegacao acesso ao Session e verficar se há algum usuário logado*@
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    // crio a variavel username para que caso haja um usuário logado o método GetString pega esse username e salva
+    var username = HttpContextAccessor.HttpContext.Session.GetString("username");
+}
 @{
 }
-
-
 <header class="header">
     <div class="container">
         <div class="wrapper">
@@ -68,6 +70,21 @@
 
                         @*Item 6*@
                         <li><a asp-controller="" asp-action="">Contato</a></li>
+
+                        @*Item 7*@
+                        @*aqui verifico se há um usuário com sessão iniciada, se sim, ele exibe o bloco abaixo, se não, ele ignora*@
+                        @if (@username != null)
+                        {
+                            <li class="menu-item-has-children">
+                                <a href="#">Usuario <i class="ion ion-ios-arrow-down"></i></a>
+                                <div class="menu-subs menu-column-1">
+                                    <ul>
+                                        <li><a asp-controller="Portfolio" asp-action="Index">Portfólio</a></li>
+                                        <li><a asp-controller="Autorizacao" asp-action="Logout" class="btn btn-warning w-100">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>

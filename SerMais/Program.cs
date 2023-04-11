@@ -10,6 +10,9 @@ namespace SerMais
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Adicionado para que a Partial _Navegacao tenha acesso aos contextos de Session (Não é usual), mas foi necessário nesse caso
+            builder.Services.AddHttpContextAccessor();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -19,7 +22,18 @@ namespace SerMais
             builder.Services.AddScoped<IProfissionalRepositorio, ProfissionalRepositorio>();
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
+            // Configurando a sessão
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             var app = builder.Build();
+
+            // Usando a sessão
+            app.UseSession();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
