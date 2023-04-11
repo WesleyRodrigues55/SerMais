@@ -53,6 +53,8 @@ namespace SerMais.Models
 
         public string OBSERVACAO { get; set; }
 
+        public IFormFile FILE { set; get; }
+
         public int ATIVO { get; set; }
 
         public int NIVEL { get; set; }

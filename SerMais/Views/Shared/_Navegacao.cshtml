@@ -4,7 +4,86 @@
 @{
 }
 
-<header>
+
+<header class="header">
+    <div class="container">
+        <div class="wrapper">
+            <div class="header-item-left">
+                <h1><a href="#" class="brand">Logo</a></h1>
+            </div>
+            <div class="header-item-center">
+                <div class="overlay"></div>
+                <nav class="menu">
+                    <div class="menu-mobile-header">
+                        <button type="button" class="menu-mobile-arrow"><i class="ion ion-ios-arrow-back"></i></button>
+                        <div class="menu-mobile-title"></div>
+                        <button type="button" class="menu-mobile-close"><i class="ion ion-ios-close"></i></button>
+                    </div>
+                    <ul class="menu-section">
+
+                        @*Item 1*@
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+
+                        @*Item 2*@
+                        <li class="menu-item-has-children">
+                            <a href="#">What's New <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-mega menu-column-4">
+                                <p>Content</p>
+                            </div>
+                        </li>
+
+                        @*Item 3*@
+                        <li class="menu-item-has-children">
+                            <a href="#">Category <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-mega menu-column-4">
+                                <p>Content</p>
+                            </div>
+                        </li>
+
+                        @*Item 4*@
+                        <li class="menu-item-has-children">
+                            <a href="#">Articles <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-column-1">
+                                <ul>
+                                    <li><a asp-controller="" asp-action="">Article One</a></li>
+                                    <li><a asp-controller="" asp-action="">Article Two</a></li>
+                                    <li><a asp-controller="" asp-action="">Article Three</a></li>
+                                    <li><a asp-controller="" asp-action="">Article Four</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        @*Item 5*@
+                        <li class="menu-item-has-children">
+                            <a href="#">Contas <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-column-1">
+                                <ul>
+                                    <li><a asp-controller="Login" asp-action="Index">Login</a></li>
+                                    <li><a asp-controller="Login" asp-action="Registrar">Registrar</a></li>
+                                    <li><a asp-controller="" asp-action="">Privacy and Policy</a></>
+                                    <li><a asp-controller="" asp-action="">Term of Cookies</a></>
+                                </ul>
+                            </div>
+                        </li>
+
+                        @*Item 6*@
+                        <li><a asp-controller="" asp-action="">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-item-right">
+                <button type="button" class="menu-mobile-trigger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+@*<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SerMais</a>
@@ -24,4 +103,4 @@
             </div>
         </div>
     </nav>
-</header>
+</header>*@

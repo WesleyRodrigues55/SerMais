@@ -3,6 +3,12 @@
     ViewData["Title"] = "Área do Adm";
 }
 
+@section CSS {
+    @*<link rel="stylesheet" href="~/css/registrar.css" />*@
+}
+
+@Html.Partial("_Navegacao")
+
 <div class="text-center">
     <h1 class="display-4">Área do adm</h1>
 
@@ -48,11 +54,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Alerta!</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                   
                     Deseja aceitar ou recusar esse Profissional?
                 </div>
                 <div class="modal-footer">
@@ -70,6 +75,8 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("_Rodape")
 
 <script>
     $('#confirmar').on('show.bs.modal', function (event) {

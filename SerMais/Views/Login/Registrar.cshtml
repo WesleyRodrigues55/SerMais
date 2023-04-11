@@ -1,4 +1,6 @@
-﻿@*
+﻿@model ViewProfissionalUsuarioModel
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -45,59 +47,97 @@
         <hr />
 
 
-        <form asp-controller="" asp-action="" method="post">
+        <form asp-controller="Login" asp-action="Cadastrar" method="post" enctype="multipart/form-data">
 
             <p><b>Dados Pessoas</b></p>
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Nome..."/>
+                    <input type="text" asp-for="Profissional.NOME" class="form-control input-form input-login" placeholder="Nome..." />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Sobrenome..." />
-                </div>
-
-                <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="E-mail..." />
-                </div>
-                <div class="col-md-6 my-2">
-                    <input type="date" class="form-control input-form input-login" />
+                    <input type="text" asp-for="Profissional.SOBRENOME" class="form-control input-form input-login" placeholder="Sobrenome..." />
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Celular..." />
+                    <input type="text" asp-for="Profissional.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="CPF..." />
+                    <input type="date" asp-for="Profissional.DT_NASCIMENTO" class="form-control input-form input-login" />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.TELEFONE" class="form-control input-form input-login" placeholder="Celular..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.CPF" class="form-control input-form input-login" placeholder="CPF..." />
                 </div>
             </div>
             @*end row*@
 
-            <p><b>Endereço</b></p>
+
+            <p class="mt-4"><b>Endereço</b></p>
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="CEP..."/>
+                    <input type="text" asp-for="Profissional.CEP" class="form-control input-form input-login" placeholder="CEP..." />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Rua..." />
-                </div>
-
-                <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Bairro..." />
-                </div>
-                <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Cidade..." />
+                    <input type="text" asp-for="Profissional.RUA" class="form-control input-form input-login" placeholder="Rua..." />
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Número..." />
+                    <input type="text" asp-for="Profissional.BAIRRO" class="form-control input-form input-login" placeholder="Bairro..." />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" class="form-control input-form input-login" placeholder="Complemento..." />
+                    <input type="text" asp-for="Profissional.CIDADE" class="form-control input-form input-login" placeholder="Cidade..." />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.NUMERO" class="form-control input-form input-login" placeholder="Número..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.COMPLEMENTO" class="form-control input-form input-login" placeholder="Complemento..." />
                 </div>
             </div>
             @*end row*@
+
+            <p class="mt-4"><b>Dados de Login</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Usuario.USUARIO" class="form-control input-form input-login" placeholder="Usuário..." />
+                </div>
+                <div class="col-md-6 my-2">
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Usuario.SENHA" class="form-control input-form input-login" placeholder="Senha..." />
+                </div>
+                <div class="col-md-6 my-2">
+                    @*<input type="text" asp-for="SENHA" class="form-control input-form input-login" placeholder="Confirme sua senha..." />*@
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.CRP" class="form-control input-form input-login" placeholder="CRP..." />
+                </div>
+                <div class="col-md-6 my-2">
+                </div>
+            </div>
+            @*end row*@
+
+            <p class="mt-4"><b>Dados de Login</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <input type="file" asp-for="Profissional.FILE" class="form-control input-form input-login" />
+                </div>
+            </div>
+            @*end row*@
+
+            <div class="mt-4">
+                <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Criar conta" />
+            </div>
 
         </form>
 
