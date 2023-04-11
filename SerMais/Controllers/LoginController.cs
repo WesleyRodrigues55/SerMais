@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using SerMais.Models;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
@@ -17,6 +18,24 @@ namespace SerMais.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+
+        // aqui será validado o login
+        // assim que clicado, precisa pegar os dados: username e senha
+        // - validar com o que tem no banco model: USUARIO
+        // - se ok, manter o usuário logado após validação no banco usando: HttpContext.Session.SetString("username", "usuario-que-vem-do-model-validado");
+        // - se tudo ok, leva pro dashboard: redirecionando para o controller > método (já tem validação se tem alguém logado ou não)
+        // - se der errado, retorna para page login informando o ocorrido (na view login, recebe uma variavel de retorno que expõe uma mensagem ao usuário
+        // que indica que usuario ou senha estão incorretos
+
+        [HttpPost]
+        public IActionResult ValidaLogin()
+        {
+            // Armazena um valor na sessão do usuário
+            HttpContext.Session.SetString("username", "wesley");
+
+            return RedirectToAction("Index", "Administrador");
         }
 
         public IActionResult Registrar(ProfissionalModel profissional, UsuarioModel usuario)
