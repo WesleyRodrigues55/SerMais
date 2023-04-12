@@ -9,11 +9,13 @@ namespace SerMais.Controllers
 
         private readonly IProfissionalRepositorio _profissionalRepositorio;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly ITipoProfissionalRepositorio _tipoProfissionalRepositorio;
 
-        public AdministradorController(IProfissionalRepositorio ProfissionalRepositorio, IUsuarioRepositorio usuarioRepositorio)
+        public AdministradorController(IProfissionalRepositorio ProfissionalRepositorio, IUsuarioRepositorio usuarioRepositorio, ITipoProfissionalRepositorio tipoProfissionalRepositorio)
         {
             _profissionalRepositorio = ProfissionalRepositorio;
             _usuarioRepositorio = usuarioRepositorio;
+            _tipoProfissionalRepositorio = tipoProfissionalRepositorio;
         }
 
         public IActionResult Index()
@@ -77,6 +79,46 @@ namespace SerMais.Controllers
             //{
             //    return View(model);
             //}
+        }
+
+        //TIPO PROFISSIONAL
+
+        //FALTA O CADASTRAR
+
+        public IActionResult TipoProfissional()
+        {
+            List<TipoProfissionalModel> tipo_profissionais = _tipoProfissionalRepositorio.BuscarTodos();
+            return View(tipo_profissionais);
+        }
+
+        public IActionResult AtivarTipoProfissional(int modalId)
+        {
+            var tipo_profissional = _tipoProfissionalRepositorio.ObterPorId(modalId);
+            if (tipo_profissional != null)
+            {
+                tipo_profissional.ATIVO = 1;
+                _tipoProfissionalRepositorio.Atualizar(tipo_profissional);
+                return RedirectToAction("TipoProfissional", "Administrador");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        public IActionResult DesativarTipoProfissional(int modalId)
+        {
+            var tipo_profissional = _tipoProfissionalRepositorio.ObterPorId(modalId);
+            if (tipo_profissional != null)
+            {
+                tipo_profissional.ATIVO = 0;
+                _tipoProfissionalRepositorio.Atualizar(tipo_profissional);
+                return RedirectToAction("TipoProfissional", "Administrador");
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
