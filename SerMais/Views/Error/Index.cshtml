@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@*É usado para adicionar uma folha de estilo apenas para essa View, e é referenciado no _Layout*@
+@section CSS {
+    <link rel="stylesheet" href="~/css/error404.css" />
+}
+<div class="d-flex justify-content-center align-items-center width=100">
+    <div class="container-fluid h-100">
+            
+                <div class="logo">
+                    <img src="~/img/logoError.png">
+                    <br />
+                </div>
+
+                <div class="imagemdoErro">
+                    <img src="~/img/imgError.png" />
+
+                </div>
+
+                <div class="paragrafo">
+                    <p>
+                        Desculpe, mas a página que você está tentando acessar não foi encontrada.<br>
+                        Verifique se o endereço URL está correto ou tente novamente mais tarde.Se o<br/>
+                        problema persistir, entre em contato com o administrador do site para obter assistência.
+                    </p>
+                </div>
+   
+                <div class="botaodoError">
+                   <input class="mb-3 w-20 btn btn-rounded-1 botao" type="submit" value="Retornar a página inicial" />
+                </div>
+
+
+    </div>
+
+</div>
+

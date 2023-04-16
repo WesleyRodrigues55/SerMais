@@ -15,41 +15,63 @@
         <div class="row h-100">
             <div class="col-md-12 col-lg-7 d-flex justify-content-center align-items-center box-1-login">
                 <div class="text-center">
-                    <h1>Acesse sua Conta</h1>
+                    <h1>Recupere sua Senha :) </h1>
+                    <br />
                     <div class="usuario-senha">
                         <div class="mb-3 d-flex align-items-center">
-                            <input class="w-100 form-control input-login" type="text" placeholder="Usuario" />
-                            <i class="bi bi-person-fill icon-login"></i>
+                            <input class="mb- w-100 form-control input-login" id="password" type="password" placeholder="Digite sua nova senha" />
+                            <i class="bi bi-eye-slash-fill icon-login icon-password"></i>
+                           
                         </div>
 
                         <div class="mb-3 d-flex align-items-center">
-                            <input class="mb- w-100 form-control input-login" id="password" type="password" placeholder="Senha" />
-                            <i class="bi bi-eye-slash-fill icon-login icon-password"></i>
+                            <input class="mb- w-100 form-control input-login" id="password2" type="password" placeholder="Digite novamente a senha" />
+                            <i class="bi bi-eye-slash-fill icon-login icon-password2"></i>
                         </div>
 
-                        <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Entrar" />
+                        <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Confirmar" />
 
-                        <div class="esqueci-senha">
-                            <a asp-controller="Login" asp-action="EsqueceuSenha"> Esqueci minha senha! </a>
-                            <br /><a asp-controller="Login" asp-action="Registrar"> Ainda não possui cadastro? Crie uma conta! </a>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 col-lg-5 box-2-login">
                 <div class="logo" style="text-align: center">
-                    <img src="~/img/logoSerMais.png" style="text-align:center" />
+                    <img src="~/img/logoSerMais.png" style="justify-content:center" />
                     <br />
                     <br />
-                    <h2 class="h2-white">RECUPERAR<br />SENHA</h2>
+                    <h2 class="h2-white">RECUPERE<br  /> SUA <br />SENHA</h2>
                     <br />
-                    <p class="subtitulo"><b>Quem cuida da mente cuida da vida!</b></p>
-                    <img src="~/img/logoRecuperarSenha.png" alt="imgLogin" style="width: 300px" />
+                    <img src="~/img/logoRecuperarSenha.png" alt="imgLogin" style="width: 300px, justify-contet:center;" />
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    let btn = document.querySelector('.icon-password');
+    let btn2 = document.querySelector('.icon-password2');
+
+    btn.addEventListener('click', function () {
+        let input = document.querySelector('#password');
+        if (input.getAttribute('type') == 'password') {
+            input.setAttribute('type', 'text');
+        } else {
+            input.setAttribute('type', 'password');
+        }
+    });
+
+    btn2.addEventListener('click', function () {
+        let input2 = document.querySelector('#password2');
+        if (input2.getAttribute('type') == 'password') {
+            input2.setAttribute('type', 'text');
+        } else {
+            input2.setAttribute('type', 'password');
+        }
+    });
+
+</script>
 
 
  

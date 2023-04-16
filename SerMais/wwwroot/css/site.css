@@ -60,7 +60,8 @@ a:hover {
     color: #3E514A;
 }
 
-.icon-password:hover {
+.icon-password:hover,
+.icon-password2:hover {
     cursor: pointer;
 }
 
