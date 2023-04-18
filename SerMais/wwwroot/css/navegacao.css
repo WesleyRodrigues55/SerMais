@@ -74,16 +74,6 @@ html {
     text-rendering: optimizeLegibility
 }
 
-body {
-    font-family: inter,Tahoma,Geneva,Verdana,sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    overflow-x: hidden;
-    color: #121212;
-    background: #fafafa
-}
-
 a, button {
     font-family: inherit;
     font-size: inherit;
@@ -111,21 +101,6 @@ img, video {
     object-fit: cover
 }
 
-.container {
-    max-width: 80rem;
-    width: 100%;
-    height: auto;
-    padding: 0 2rem;
-    margin: 0 auto
-}
-
-@media only screen and (max-width:992px) {
-    .container {
-        padding: 0 1rem;
-        margin: 0 auto
-    }
-}
-
 .brand {
     font-family: inherit;
     font-size: 1.75rem;
@@ -139,7 +114,7 @@ img, video {
 }
 
 .header {
-    position: fixed;
+    position: unset;
     display: block;
     top: 0;
     left: 0;
@@ -150,7 +125,7 @@ img, video {
     z-index: 999;
     border: none;
     outline: none;
-    background: #fafafa;
+    background: #36AB82;
     -webkit-box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
     box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06)
 }
@@ -229,13 +204,11 @@ img, video {
 
     .header .menu > ul > li > a {
         position: relative;
-        font-family: inherit;
-        font-size: 1rem;
-        font-weight: 500;
+        font-weight: bold;
         line-height: 1.25;
         border: none;
         outline: none;
-        color: #121212;
+        color: #fff;
         text-transform: capitalize;
         text-rendering: optimizeLegibility;
         -webkit-transition: color .3s ease-in-out;

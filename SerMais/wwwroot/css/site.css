@@ -20,7 +20,7 @@ body {
 
 main {
     /*height: 100%;*/
-    margin-top: 120px;
+    /*margin-top: 98px;*/
 }
 dl, ol, ul {
     margin-bottom: 0px !important;
@@ -29,8 +29,13 @@ dl, ol, ul {
     Tipografia
 */
 h1 {
+    font-size: 2.5rem;
     margin-bottom: 16px;
     font-weight: bold;
+}
+
+.h1-white {
+    color: white;
 }
 
 .h2-white {
@@ -128,6 +133,11 @@ input[type=password]::-ms-clear {
 /*
     box sessão login
 */
+
+.box-1-login>div {
+    width: 400px;
+}
+
 
 .box-2-login {
     display: flex;

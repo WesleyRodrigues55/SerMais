@@ -1,9 +1,130 @@
-﻿
+﻿@section CSS {
+    <link rel="stylesheet" href="~/css/home.css" />
+}
 
 @Html.Partial("_Navegacao")
 
 <main>
-    <h1>Home</h1>
+    <div class="banner">
+        <div class="d-flex justify-content-center align-items-center flex-column h-100">
+            <div class="box-title-banner">
+                <h1 class="h1-white">Quem cuida da mente   cuida da vida!</h1>
+            </div>
+            <div class="w-100 d-flex justify-content-end box-button-banner">
+                <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="" asp-action="">Conheça nossos profissionais</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Precisa de ajuda psicológica?</h2>
+        <p>A correria tem te impedido de buscar a ajuda que precisa? Democratizar o acesso à terapia é muito importante para nós.</p>
+        <p>A SerMais é uma plataforma que conecta você a profissionais especializados em diversos campos da psicologia e psiquiatria. Você pode escolher o profissional com o perfil mais alinhado às suas necessidades e agendar um horário de forma muito prática.</p>
+
+        <br />
+
+        <h2 class="text-center mb-4">Os melhores psicólogos e psiquiatras online</h2>
+        <p>Selecionamos com muito zelo e critério o especialista que vai cuidar de você</p>
+
+        <br />
+
+        <p class="text-center"><b>Veja os profissionais disponíveis:</b></p>
+
+
+        @*Informações abaixo virão do banco*@
+        <div class="row">
+            <div class="col-md-3 mt-2">
+                <div class="box-profissionais text-center">
+                    <img src="~/img/home/profisisonal.png" alt="profissional" />
+                    <p>
+                        <b>
+                            <span>Bruno Oliveira </span>
+                            <br />
+                            <span>CRP: 0000000</span>
+                        </b>
+                    </p>
+                    <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
+                    <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="" asp-action="">Saiba mais!</a></p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mt-2">
+                <div class="box-profissionais text-center">
+                    <img src="~/img/home/profisisonal.png" alt="profissional" />
+                    <p>
+                        <b>
+                            <span>Bruno Oliveira </span>
+                            <br />
+                            <span>CRP: 0000000</span>
+                        </b>
+                    </p>
+                    <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
+                    <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="" asp-action="">Saiba mais!</a></p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mt-2">
+                <div class="box-profissionais text-center">
+                    <img src="~/img/home/profisisonal.png" alt="profissional" />
+                    <p>
+                        <b>
+                            <span>Bruno Oliveira </span>
+                            <br />
+                            <span>CRP: 0000000</span>
+                        </b>
+                    </p>
+                    <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
+                    <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="" asp-action="">Saiba mais!</a></p>
+                </div>
+            </div>
+
+            <div class="col-md-3 mt-2">
+                <div class="box-profissionais d-flex align-items-center justify-content-center flex-column h-100 text-center">
+                    <i class="bi bi-arrow-right-circle icon-profissionais"></i>
+                    <p>Veja outros profissionais clicando no botão abaixo</p>
+                    <p class="w-100"><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="" asp-action="">Saiba mais!</a></p>
+                </div>
+            </div>
+        </div>
+        @*Fim informações do banco*@
+
+        <h2 class="text-center mt-5 mb-4">Como funciona a terapia online?</h2>
+
+        <p>Desde 2018 o Conselho Federal de Psicologia permite a realização de atendimento remoto. Assim como as sessões presenciais, no modelo online o profissional deve se guiar pelo Código de Ética Profissional.</p>
+        <p>Crianças e adolescentes podem ser atendidos mediante a autorização dos responsáveis legais.</p>
+        <p>Os atendimentos são feitos através de vídeo-consultas e podem contar com o apoio de whatsApp e outras ferramentas de troca de mensagens.</p>
+        <p>Selecione a especialidade desejada do terapeuta online e defina a melhor data e horário para a consulta, conforme sua disponibilidade.</p>
+
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <div class="box-como-funciona text-center h-100">
+                    <i class="bi bi-search icon-como-funciona"></i>
+                    <p><b>Pesquisa Inteligente</b> </p>
+                    <p>1. Encontre o melhor psicólogo para você. São dezenas de profissionais cuidadosamente selecionados.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-2">
+                <div class="box-como-funciona text-center h-100">
+                    <i class="bi bi-calendar-check icon-como-funciona"></i>
+                    <p><b>Agendamento Online</b> </p>
+                    <p>2. Agende pelo site e escolha o melhor horário e o melhor preço disponível para agendar sua consulta.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-2">
+                <div class="box-como-funciona text-center h-100">
+                    <i class="bi bi-emoji-smile icon-como-funciona"></i>
+                    <p><b>Compromisso</b> </p>
+                    <p>3. Compareça à sua consulta e comece a cuidar do seu bem estar.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
 </main>
 
 @Html.Partial("_Rodape")

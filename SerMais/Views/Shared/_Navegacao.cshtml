@@ -11,7 +11,9 @@
     <div class="container">
         <div class="wrapper">
             <div class="header-item-left">
-                <h1><a href="#" class="brand">Logo</a></h1>
+                <a href="#" class="brand">
+                    <img src="~/img/logo-branco.png"></img>
+                </a>
             </div>
             <div class="header-item-center">
                 <div class="overlay"></div>
@@ -28,17 +30,27 @@
 
                         @*Item 2*@
                         <li class="menu-item-has-children">
-                            <a href="#">What's New <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-mega menu-column-4">
-                                <p>Content</p>
+                            <a href="#">Login <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-column-1">
+                                <ul>
+                                    <li><a asp-controller="Login" asp-action="Index">Login</a></li>
+                                    <li><a asp-controller="Login" asp-action="Registrar">Registrar</a></li>
+                                    <li><a asp-controller="Login" asp-action="RecuperarSenha">Recuperar Senha</a></li>
+                                    <li><a asp-controller="Home" asp-action="">Privacy and Policy</a></>
+                                    <li><a asp-controller="" asp-action="">Term of Cookies</a></>
+                                </ul>
                             </div>
                         </li>
+                        
 
                         @*Item 3*@
                         <li class="menu-item-has-children">
-                            <a href="#">Category <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-mega menu-column-4">
-                                <p>Content</p>
+                            <a href="#">Sobre nós <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-column-1">
+                                <ul>
+                                    <li><a asp-controller="Home" asp-action="Privacy">Política de Privacidade</a></>
+                                    <li><a asp-controller="Home" asp-action="Cookies">Política de Cookies</a></>
+                                </ul>
                             </div>
                         </li>
 
@@ -57,15 +69,9 @@
 
                         @*Item 5*@
                         <li class="menu-item-has-children">
-                            <a href="#">Contas <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-column-1">
-                                <ul>
-                                    <li><a asp-controller="Login" asp-action="Index">Login</a></li>
-                                    <li><a asp-controller="Login" asp-action="Registrar">Registrar</a></li>
-                                    <li><a asp-controller="Login" asp-action="RecuperarSenha">Recuperar Senha</a></li>
-                                    <li><a asp-controller="" asp-action="">Privacy and Policy</a></>
-                                    <li><a asp-controller="" asp-action="">Term of Cookies</a></>
-                                </ul>
+                            <a href="#">What's New <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-mega menu-column-4">
+                                <p>Content</p>
                             </div>
                         </li>
 

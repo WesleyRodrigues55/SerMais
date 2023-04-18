@@ -1,39 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-body{
-    color:#FFFF;
+﻿.box-content-error {
+    width: 760px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: auto;
-    width:300px
-}
-
-.imagemdoErro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: auto;
-    width: 500px;
-}
-
-.botaodoError {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: auto;
-}
-
-.paragrafo {
     text-align: center;
+    width: 300px;
+    height: 0;
+    margin-bottom: 80px;
+}
+
+.box-imagem-erro {
+    text-align: center;
+}
+
+.box-botao-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+    .box-botao-error a {
+        padding : 10px 40px !important;
+    }
+
+    @media screen and (max-width: 768px) {
+        .box-content-error {
+            padding: 0 24px;
+        }
+        .box-imagem-erro {
+        /*width: 100%;*/
+    }
 }

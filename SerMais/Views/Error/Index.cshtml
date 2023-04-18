@@ -8,33 +8,28 @@
 @section CSS {
     <link rel="stylesheet" href="~/css/error404.css" />
 }
-<div class="d-flex justify-content-center align-items-center width=100">
-    <div class="container-fluid h-100">
-            
-                <div class="logo">
-                    <img src="~/img/logoError.png">
-                    <br />
-                </div>
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="h-100 box-content-error">
+        <div class="logo d-block">
+            <img src="~/img/logo.png">
+            <br />
+        </div>
 
-                <div class="imagemdoErro">
-                    <img src="~/img/imgError.png" />
+        <div class="box-imagem-erro d-block">
+            <img src="~/img/imgError.png" />
+        </div>
 
-                </div>
-
-                <div class="paragrafo">
-                    <p>
-                        Desculpe, mas a página que você está tentando acessar não foi encontrada.<br>
-                        Verifique se o endereço URL está correto ou tente novamente mais tarde.Se o<br/>
-                        problema persistir, entre em contato com o administrador do site para obter assistência.
-                    </p>
-                </div>
+        <div class="text-center d-block">
+            <p>
+                Desculpe, mas a página que você está tentando acessar não foi encontrada.<br>
+                Verifique se o endereço URL está correto ou tente novamente mais tarde.Se o<br/>
+                problema persistir, entre em contato com o administrador do site para obter assistência.
+            </p>
+        </div>
    
-                <div class="botaodoError">
-                   <input class="mb-3 w-20 btn btn-rounded-1 botao" type="submit" value="Retornar a página inicial" />
-                </div>
-
-
+        <div class="box-botao-error d-block">
+            <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="Home" asp-action="Index">Retornar a página inicial</a>
+        </div>
     </div>
-
 </div>
 
