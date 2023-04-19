@@ -1,0 +1,28 @@
+﻿.box-profissional {
+    border: 1px solid #3E514A;
+    border-radius: 4px;
+}
+
+.img-profissional {
+    width: 260px !important;
+}
+
+.box-about-profissional {
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+
+@media screen and (max-width: 767px) {
+    .box-profissional {
+        margin: 0 2px;
+    }
+    .box-img-profissional .img-profissional {
+        margin: 0 auto;
+    }
+
+    .box-about-profissional {
+        text-align: center;
+    }
+}

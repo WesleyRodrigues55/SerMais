@@ -30,61 +30,42 @@
 
                         @*Item 2*@
                         <li class="menu-item-has-children">
-                            <a href="#">Login <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-column-1">
-                                <ul>
-                                    <li><a asp-controller="Login" asp-action="Index">Login</a></li>
-                                    <li><a asp-controller="Login" asp-action="Registrar">Registrar</a></li>
-                                    <li><a asp-controller="Login" asp-action="RecuperarSenha">Recuperar Senha</a></li>
-                                    <li><a asp-controller="Home" asp-action="">Privacy and Policy</a></>
-                                    <li><a asp-controller="" asp-action="">Term of Cookies</a></>
-                                </ul>
-                            </div>
-                        </li>
-                        
-
-                        @*Item 3*@
-                        <li class="menu-item-has-children">
                             <a href="#">Sobre nós <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-column-1">
+                            <div class="menu-subs menu-subs-mobile menu-column-1">
                                 <ul>
                                     <li><a asp-controller="Home" asp-action="Privacy">Política de Privacidade</a></>
                                     <li><a asp-controller="Home" asp-action="Cookies">Política de Cookies</a></>
                                 </ul>
                             </div>
-                        </li>
+                        </li>                        
+
+                        @*Item 3*@
+                        <li><a asp-controller="" asp-action="">Contato</a></li>
 
                         @*Item 4*@
                         <li class="menu-item-has-children">
-                            <a href="#">Articles <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-column-1">
-                                <ul>
-                                    <li><a asp-controller="" asp-action="">Article One</a></li>
-                                    <li><a asp-controller="" asp-action="">Article Two</a></li>
-                                    <li><a asp-controller="" asp-action="">Article Three</a></li>
-                                    <li><a asp-controller="" asp-action="">Article Four</a></li>
-                                </ul>
-                            </div>
+                            <a asp-controller="Profissionais" asp-action="Index">Profissionais</a>
                         </li>
 
                         @*Item 5*@
                         <li class="menu-item-has-children">
-                            <a href="#">What's New <i class="ion ion-ios-arrow-down"></i></a>
-                            <div class="menu-subs menu-mega menu-column-4">
-                                <p>Content</p>
+                            <a href="#">Login <i class="ion ion-ios-arrow-down"></i></a>
+                            <div class="menu-subs menu-subs-mobile menu-column-1" style="right: 140px">
+                                <ul>
+                                    <li><a asp-controller="Login" asp-action="Index">Iniciar Sessão</a></li>
+                                    <li><a asp-controller="Login" asp-action="Registrar">Registre-se</a></li>
+                                    <li><a asp-controller="Login" asp-action="RecuperarSenha">Recuperar sua senha</a></li>
+                                </ul>
                             </div>
                         </li>
 
                         @*Item 6*@
-                        <li><a asp-controller="" asp-action="">Contato</a></li>
-
-                        @*Item 7*@
                         @*aqui verifico se há um usuário com sessão iniciada, se sim, ele exibe o bloco abaixo, se não, ele ignora*@
                         @if (@username != null)
                         {
                             <li class="menu-item-has-children">
                                 <a href="#">Usuario <i class="ion ion-ios-arrow-down"></i></a>
-                                <div class="menu-subs menu-column-1">
+                                <div class="menu-subs menu-subs-mobile menu-column-1">
                                     <ul>
                                         <li><a asp-controller="Portfolio" asp-action="Index">Portfólio</a></li>
                                         <li><a asp-controller="Autorizacao" asp-action="Logout" class="btn btn-warning w-100">Logout</a></li>
