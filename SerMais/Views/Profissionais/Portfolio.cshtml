@@ -1,0 +1,83 @@
+﻿@model ProfissionalModel;
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/portfolio.css" />
+}
+
+@Html.Partial("_Navegacao")
+
+<main class="container my-5">
+    <h1>Sou a página do profissional</h1>
+
+
+    <p>ID do profissional: @Model.ID e Nome do profissional: @Model.NOME</p>
+
+
+    <div class="row">
+
+        @*profissional*@
+        <div class="col-md-12 my-3">
+            <div class="row box-profissional">
+                <div class="col-md-12 col-lg-6">
+                    <div class="p-2">
+                        <div class="row">
+                            <div class="col-12 col-md-6 box-img-profissional">
+                                <img class="img-profissional" src="~/img/home/profisisonal.png" alt="imagem do profissional" />
+                            </div>
+                            <div class="col-12 col-md-6 p-2 box-about-profissional">
+                                <p><b>Bruno Oliveira</b></p>
+                                <p>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </p>
+                                <p><span>Psicólogo</span> | <span>Sorocaba SP</span></p>
+                                <p><b>CRP: </b>0000000</p>
+                                <p><span>Ansiedade</span> | <span>Depressão</span> | <span>TDAH</span> | <span>Bordeline</span></p>
+                            </div>
+                        </div>
+                        <div class="py-2 box-about-profissional">
+                            <div class="">
+                                <h5>R$ 155,00</h5>
+                                <p>
+                                    <i class="bi bi-currency-dollar icon-portfolio"></i><b> Pague com: </b>Cartão <span> | </span>Pix
+                                </p>
+                            </div>
+                            <p><i class="bi bi-alarm icon-portfolio"></i><b> Duração da sessão: </b>50 á 60 Minutos</p>
+                            <p><i class="bi bi-people-fill icon-portfolio"></i><b> Atende: </b>Adultos e crianças</p>
+                            <p><i class="bi bi-telephone-fill icon-portfolio"></i> (15) 32665878 - Secretária das 7hrs ás 18hrs</p>
+                            <p><i class="bi bi-whatsapp icon-portfolio"></i> (15) 988097406 - Bruno de Oliveira</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="h-100 d-flex align-items-center justify-content-center">
+                        <p>Aqui seria o calendário</p>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="my-4">
+                        <h5>FORMAÇÃO E CURSOS</h5>
+                        <p>Atende adultos e idosos. Tem experiência em Psicologia Clínica e em Psicologia da Saúde e Hospitalar.</p>
+                    </div>
+                    <div class="my-4">
+                        <h5>SOBRE MIM</h5>
+                        <p>Olá, Sou psicólogo clínico e atendo na abordagem Cognitivo-Comportamental. Trabalho com questões de ansiedade, estresse, saúde do trabalhador, doenças crônicas, processos de internação e hospitalização, distúrbios do sono, cuidados paliativos e luto, entre outras. Atendo adultos e idosos.</p>
+                    </div>
+                     <div class="my-4">
+                        <h5>AVALIAÇÃO DO PROFISSIONAL</h5>
+                       
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+@Html.Partial("_Rodape")
