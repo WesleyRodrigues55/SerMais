@@ -21,7 +21,6 @@ namespace SerMais
                 .AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
             builder.Services.AddScoped<IProfissionalRepositorio, ProfissionalRepositorio>();
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            builder.Services.AddScoped<ITipoProfissionalRepositorio, TipoProfissionalRepositorio>();
 
             // Configurando a sessão
             builder.Services.AddSession(options =>

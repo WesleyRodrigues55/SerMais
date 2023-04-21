@@ -62,7 +62,5 @@ namespace SerMais.Models
         public int NIVEL { get; set; }
 
         public int STATUS { get; set; }
-
-        public TipoProfissionalModel ID_TIPO_PROFISSIONAL { get; set; }
     }
 }

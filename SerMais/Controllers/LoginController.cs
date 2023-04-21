@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using SerMais.Models;
+using SerMais.Repositorio;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace SerMais.Controllers
@@ -58,6 +59,15 @@ namespace SerMais.Controllers
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
+            //AQUIII
+            // ADD NOS REPOSITÍRO ProfissionalRepoisitorio e UsuarioRepositorio os métodos que precisam fazer a
+            // INSERÇÃO DOS DADOS e SELEÇÃO DO ID DO PROFISSIONAL INSERIDO (algo como lastId)
+            // primeiro ele pega os dados do ProfissionalModel e insere no banco
+            // Em seguida ele pega o ID desse profissional que foi inserido e armazena em uma variavel 
+            // Após isso ele insere os valores no UsuarioModel (onde ocntém o ID do profissional inserido)
+
+
+            //Por fim ele move o arquivo file
             if (profissional.FILE != null)
             {
                 var uniqueFileName = GetUniqueFileName(profissional.FILE.FileName);
@@ -65,6 +75,8 @@ namespace SerMais.Controllers
                 var filePath = Path.Combine(uploads, uniqueFileName);
                 profissional.FILE.CopyTo(new FileStream(filePath, FileMode.Create));
             }
+
+
             return RedirectToAction("Index", "Login");
         }
 

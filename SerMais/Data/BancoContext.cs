@@ -10,7 +10,6 @@ namespace SerMais.Data
         }
 
         public DbSet<ProfissionalModel> PROFISSIONAL { get; set; }
-        public DbSet<TipoProfissionalModel> TIPO_PROFISSIONAL { get; set; }
         public DbSet<UsuarioModel> USUARIO { get; set; }
 
         //public DbSet<PortfolioModel> PORTFOLIO { get; set; }
