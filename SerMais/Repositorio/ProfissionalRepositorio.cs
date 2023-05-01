@@ -27,5 +27,24 @@ namespace SerMais.Repositorio
                 .Where(p => p.ATIVO == 0)
                 .ToList();
         }
+
+        public ProfissionalModel BuscarEmailPorID(int id)
+        {
+            var profissional = _bancoContext.PROFISSIONAL
+                .FirstOrDefault(p => p.ID == id);
+
+            if (profissional != null)
+            {
+                return new ProfissionalModel
+                {
+                    EMAIL = profissional.EMAIL,
+                    NOME = profissional.NOME
+                };
+            }
+
+            return null;
+
+            //return profissional?.EMAIL;
+        }
     }
 }

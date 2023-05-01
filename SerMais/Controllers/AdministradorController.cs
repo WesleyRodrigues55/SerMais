@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using MimeKit;
 using SerMais.Models;
 using SerMais.Repositorio;
 
@@ -6,7 +10,6 @@ namespace SerMais.Controllers
 {
     public class AdministradorController : Controller
     {
-
         private readonly IProfissionalRepositorio _profissionalRepositorio;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
@@ -25,58 +28,77 @@ namespace SerMais.Controllers
             {
                 return RedirectToAction("SemAutorizacao", "Autorizacao");
             }
+            return View();
+        }
 
+        public IActionResult ProfissionaisPendentes()
+        {
+            // Recupera um valor da sessão do usuário
+            string username = HttpContext.Session.GetString("username");
+
+            if (username == null)
+            {
+                return RedirectToAction("SemAutorizacao", "Autorizacao");
+            }
             List<ProfissionalModel> profissionais = _profissionalRepositorio.BuscarTodos();
             return View(profissionais);
         }
 
         [HttpPost]
-        public IActionResult Aceitar(int modalId)
+        public IActionResult AceitarProfissional(int modalId, string modalNome)
         {
-            //if (ModelState.IsValid)
-            //{
-            var profissional = _profissionalRepositorio.ObterPorId(modalId);
-            var usuario = _usuarioRepositorio.ObterPorId(modalId);
-            if (profissional != null)
+            if (ModelState.IsValid)
             {
-                profissional.ATIVO = 1;
-                usuario.ATIVO = 1;
-                _profissionalRepositorio.Atualizar(profissional);
-                _usuarioRepositorio.Atualizar(usuario);
-                return RedirectToAction("Index");
+                var profissional = _profissionalRepositorio.ObterPorId(modalId);
+                var usuario = _usuarioRepositorio.ObterPorId(modalId);
+                if (profissional != null)
+                {
+                    profissional.ATIVO = 1;
+                    usuario.ATIVO = 1;
+                    _profissionalRepositorio.Atualizar(profissional);
+                    _usuarioRepositorio.Atualizar(usuario);
+                    EmailController.SendAccepted(modalId, _profissionalRepositorio);
+                    TempData["MensagemAceita"] = $"Profissional {modalNome} aceito com sucesso";
+                    return RedirectToAction("ProfissionaisPendentes");
+                }
+                else
+                {
+                    TempData["MensagemErro"] = $"Houve algum erro durante o procedimento, tente novamente.";
+                    return RedirectToAction("ProfissionaisPendentes");
+                }
             }
             else
             {
-                return NotFound();
+                TempData["MensagemErro"] = $"Houve algum erro durante o procedimento, tente novamente.";
+                return RedirectToAction("ProfissionaisPendentes");
             }
-            //}
-            //else
-            //{
-            //    return View(model);
-            //}
         }
 
         [HttpPost]
-        public IActionResult Recusar(int modalId)
+        public IActionResult RecusarProfissional(int modalId, string modalNome)
         {
-            //if (ModelState.IsValid)
-            //{
-            var profissional = _profissionalRepositorio.ObterPorId(modalId);
-            if (profissional != null)
+            if (ModelState.IsValid)
             {
-                profissional.ATIVO = 2;
-                _profissionalRepositorio.Atualizar(profissional);
-                return RedirectToAction("Index");
+                var profissional = _profissionalRepositorio.ObterPorId(modalId);
+                if (profissional != null)
+                {
+                    profissional.ATIVO = 2;
+                    _profissionalRepositorio.Atualizar(profissional);
+                    EmailController.SendDeclined(modalId, _profissionalRepositorio);
+                    TempData["MensagemRecusada"] = $"Profissional {modalNome} recusada com sucesso";
+                    return RedirectToAction("ProfissionaisPendentes");
+                }
+                else
+                {
+                    TempData["MensagemErro"] = $"Houve algum erro durante o procedimento, tente novamente.";
+                    return RedirectToAction("ProfissionaisPendentes");
+                }
             }
             else
             {
-                return NotFound();
+                TempData["MensagemErro"] = $"Houve algum erro durante o procedimento, tente novamente.";
+                return RedirectToAction("ProfissionaisPendentes");
             }
-            //}
-            //else
-            //{
-            //    return View(model);
-            //}
         }
         
     }

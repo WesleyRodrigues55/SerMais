@@ -7,6 +7,7 @@ namespace SerMais.Repositorio
         void Atualizar(ProfissionalModel profissional);
         ProfissionalModel ObterPorId(int id);
         List<ProfissionalModel> BuscarTodos();
+        ProfissionalModel BuscarEmailPorID(int id);
 
     }
 }
