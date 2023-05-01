@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+h1 {
+    text-align: center;
+    color: #3E514A;
+}
+
+.texto1 {
+    background-color: #BBF1DE;
+    margin-left: 80px;
+    margin-right: 80px;
+    border-radius: 77px;
+    text-align:center;
+    justify-content:center;
+}
+
+.informacoes {
+    color: #3E514A;
+    background-color: #BBF1DE;
+    margin-left: 80px;
+    margin-right: 80px;
+    border-radius: 77px;
+    text-align:center;
+}
+
+h4 {
+    color:#3E514A;
+}
