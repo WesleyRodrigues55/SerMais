@@ -59,6 +59,19 @@ namespace SerMais.Controllers
             return View();
         }
 
+        public ProfissionalModel checkedFile(ProfissionalModel profissional)
+        {
+            if (profissional.FILE != null)
+            {
+                var uniqueFileName = GetUniqueFileName(profissional.FILE.FileName);
+                var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "uploads");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                profissional.FILE.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            return profissional;
+        }
+
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
@@ -68,13 +81,7 @@ namespace SerMais.Controllers
                 var profissionalInserido = _profissionalRepositorio.Inserir(profissional);
                 usuario.ID_PROFISSIONAL = profissionalInserido;
                 _usuarioRepositorio.Inserir(usuario);
-                if (profissional.FILE != null)
-                {
-                    var uniqueFileName = GetUniqueFileName(profissional.FILE.FileName);
-                    var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "uploads");
-                    var filePath = Path.Combine(uploads, uniqueFileName);
-                    profissional.FILE.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
+                checkedFile(profissional);
                 TempData["MensagemSucesso"] = $"Cadastro realizado com sucesso, te enviaremos um e-mail com mais detalhes sobre o procedimento.";
                 return RedirectToAction("Registrar", "Login");
             }
