@@ -57,10 +57,10 @@ namespace SerMais.Models
         [NotMapped]
         public IFormFile FILE { set; get; }
 
-        public int ATIVO { get; set; }
+        public int ATIVO { get; set; } = 0;
 
-        public int NIVEL { get; set; }
+        public int NIVEL { get; set; } = 1;
 
-        public int STATUS { get; set; }
+        public int STATUS { get; set; } = 0;
     }
 }

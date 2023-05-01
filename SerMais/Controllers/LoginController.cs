@@ -10,10 +10,14 @@ namespace SerMais.Controllers
     public class LoginController : Controller
     {
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IProfissionalRepositorio _profissionalRepositorio;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public LoginController(Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
+        public LoginController(Microsoft.AspNetCore.Hosting.IHostingEnvironment environment, IProfissionalRepositorio profissionalRepositorio, IUsuarioRepositorio usuarioRepositorio)
         {
             hostingEnvironment = environment;
+            _profissionalRepositorio = profissionalRepositorio;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public IActionResult Index()
@@ -45,7 +49,7 @@ namespace SerMais.Controllers
             {
                 Profissional = profissional,
                 Usuario = usuario
-            };
+            };     
 
             return View(viewModel);
         }
@@ -55,29 +59,27 @@ namespace SerMais.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
-            //AQUIII
-            // ADD NOS REPOSITÍRO ProfissionalRepoisitorio e UsuarioRepositorio os métodos que precisam fazer a
-            // INSERÇÃO DOS DADOS e SELEÇÃO DO ID DO PROFISSIONAL INSERIDO (algo como lastId)
-            // primeiro ele pega os dados do ProfissionalModel e insere no banco
-            // Em seguida ele pega o ID desse profissional que foi inserido e armazena em uma variavel 
-            // Após isso ele insere os valores no UsuarioModel (onde ocntém o ID do profissional inserido)
-
-
-            //Por fim ele move o arquivo file
-            if (profissional.FILE != null)
+            profissional.NOME_COMPLETO = profissional.NOME + " " + profissional.SOBRENOME;
+            if (_profissionalRepositorio.BuscaCrp(profissional.CRP) == null)
             {
-                var uniqueFileName = GetUniqueFileName(profissional.FILE.FileName);
-                var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "uploads");
-                var filePath = Path.Combine(uploads, uniqueFileName);
-                profissional.FILE.CopyTo(new FileStream(filePath, FileMode.Create));
+                var profissionalInserido = _profissionalRepositorio.Inserir(profissional);
+                usuario.ID_PROFISSIONAL = profissionalInserido;
+                _usuarioRepositorio.Inserir(usuario);
+                if (profissional.FILE != null)
+                {
+                    var uniqueFileName = GetUniqueFileName(profissional.FILE.FileName);
+                    var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "uploads");
+                    var filePath = Path.Combine(uploads, uniqueFileName);
+                    profissional.FILE.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                TempData["MensagemSucesso"] = $"Cadastro realizado com sucesso, te enviaremos um e-mail com mais detalhes sobre o procedimento.";
+                return RedirectToAction("Registrar", "Login");
             }
-
-
-            return RedirectToAction("Index", "Login");
+            TempData["MensagemUsuarioExiste"] = $"Esse usuário já existe";
+            return RedirectToAction("Registrar", "Login");
         }
 
         private string GetUniqueFileName(string fileName)

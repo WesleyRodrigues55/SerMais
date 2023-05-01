@@ -12,6 +12,12 @@ namespace SerMais.Repositorio
         {
             _bancoContext = bancoContext;
         }
+        public void Inserir(UsuarioModel usuario)
+        {
+            _bancoContext.Entry(usuario).State = EntityState.Added;
+            _bancoContext.SaveChanges();
+        }
+
         public void Atualizar(UsuarioModel usuario)
         {
             _bancoContext.Entry(usuario).State = EntityState.Modified;

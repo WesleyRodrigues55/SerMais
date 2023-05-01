@@ -46,6 +46,21 @@
 
         <hr />
 
+        @if (TempData["MensagemSucesso"] != null)
+        {
+            <div class="alert alert-success" role="alert" id="mensagem">
+                @TempData["MensagemSucesso"]
+            </div>
+        }
+        @if (TempData["MensagemUsuarioExiste"] != null)
+        {
+            <div class="alert alert-warning" role="alert" id="mensagem">
+                @TempData["MensagemUsuarioExiste"] <br>
+                <p>Caso tenha esquecido seus dados de login, <a asp-controller="Login" asp-action="EsqueceuSenha">clique aqui</a>.</p>
+            </div>
+        }
+
+        @*PREENCHIMENTO DO ENDEREÇO VIA CEP*@
 
         <form asp-controller="Login" asp-action="Cadastrar" method="post" enctype="multipart/form-data">
 
@@ -53,24 +68,24 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.NOME" class="form-control input-form input-login" placeholder="Nome..." />
+                    <input type="text" asp-for="Profissional.NOME" class="form-control input-form input-login" placeholder="Nome..." required />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.SOBRENOME" class="form-control input-form input-login" placeholder="Sobrenome..." />
-                </div>
-
-                <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." />
-                </div>
-                <div class="col-md-6 my-2">
-                    <input type="date" asp-for="Profissional.DT_NASCIMENTO" class="form-control input-form input-login" />
+                    <input type="text" asp-for="Profissional.SOBRENOME" class="form-control input-form input-login" placeholder="Sobrenome..." required />
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.TELEFONE" class="form-control input-form input-login" placeholder="Celular..." />
+                    <input type="text" asp-for="Profissional.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." required />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.CPF" class="form-control input-form input-login" placeholder="CPF..." />
+                    <input type="date" asp-for="Profissional.DT_NASCIMENTO" class="form-control input-form input-login" required />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.TELEFONE" class="form-control input-form input-login" placeholder="Celular..." required />
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.CPF" class="form-control input-form input-login" placeholder="CPF..." required />
                 </div>
             </div>
             @*end row*@
@@ -80,24 +95,24 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.CEP" class="form-control input-form input-login" placeholder="CEP..." />
+                    <input type="text" asp-for="Profissional.CEP" class="form-control input-form input-login" placeholder="CEP..." required />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.RUA" class="form-control input-form input-login" placeholder="Rua..." />
-                </div>
-
-                <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.BAIRRO" class="form-control input-form input-login" placeholder="Bairro..." />
-                </div>
-                <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.CIDADE" class="form-control input-form input-login" placeholder="Cidade..." />
+                    <input type="text" asp-for="Profissional.RUA" class="form-control input-form input-login" placeholder="Rua..." required />
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.NUMERO" class="form-control input-form input-login" placeholder="Número..." />
+                    <input type="text" asp-for="Profissional.BAIRRO" class="form-control input-form input-login" placeholder="Bairro..." required />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.COMPLEMENTO" class="form-control input-form input-login" placeholder="Complemento..." />
+                    <input type="text" asp-for="Profissional.CIDADE" class="form-control input-form input-login" placeholder="Cidade..." required />
+                </div>
+
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.NUMERO" class="form-control input-form input-login" placeholder="Número..." required/>
+                </div>
+                <div class="col-md-6 my-2">
+                    <input type="text" asp-for="Profissional.COMPLEMENTO" class="form-control input-form input-login" placeholder="Complemento..." required/>
                 </div>
             </div>
             @*end row*@
@@ -106,28 +121,29 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Usuario.USUARIO" class="form-control input-form input-login" placeholder="Usuário..." />
+                    <input type="text" asp-for="Usuario.USUARIO" class="form-control input-form input-login" placeholder="Usuário..." required />
                 </div>
                 <div class="col-md-6 my-2">
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Usuario.SENHA" class="form-control input-form input-login" placeholder="Senha..." />
+                    <input type="text" asp-for="Usuario.SENHA" class="form-control input-form input-login" placeholder="Senha..." required />
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.CRP" class="form-control input-form input-login" placeholder="CRP..." />
+                    <input type="text" asp-for="Profissional.CRP" class="form-control input-form input-login" placeholder="CRP..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <textarea rows="5" asp-for="Profissional.OBSERVACAO" class="form-control input-form input-login" placeholder="Observação..." required></textarea>
                 </div>
             </div>
             @*end row*@
 
-            <p class="mt-4"><b>Dados de Login</b></p>
+            <p class="mt-4"><b>Anexo</b></p>
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
-                    <input type="file" asp-for="Profissional.FILE" class="form-control input-form input-login" />
+                    <input type="file" asp-for="Profissional.FILE" class="form-control input-form input-login" required />
                 </div>
             </div>
             @*end row*@
@@ -138,11 +154,31 @@
 
         </form>
 
-
     </div>
 </main>
 
 @Html.Partial("_Rodape")
+
+<script>
+    $(document).ready(function () {
+        if ($(".alert-success").length > 0) {
+            setTimeout(function () {
+                $(".alert-success").slideUp(500);
+            }, 8000);
+        }
+        else if ($(".alert-danger").length > 0) {
+            setTimeout(function () {
+                $(".alert-danger").slideUp(500);
+            }, 8000);
+        }
+        else if ($(".alert-warning").length > 0) {
+            setTimeout(function () {
+                $(".alert-warning").slideUp(500);
+            }, 8000);
+        }
+    });
+
+</script>
 
 
 

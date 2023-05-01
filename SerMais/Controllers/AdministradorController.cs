@@ -55,7 +55,7 @@ namespace SerMais.Controllers
                 {
                     profissional.ATIVO = 1;
                     usuario.ATIVO = 1;
-                    _profissionalRepositorio.Atualizar(profissional);
+                    _profissionalRepositorio.AtualizaAtivoProfissional(profissional);
                     _usuarioRepositorio.Atualizar(usuario);
                     EmailController.SendAccepted(modalId, _profissionalRepositorio);
                     TempData["MensagemAceita"] = $"Profissional {modalNome} aceito com sucesso";
@@ -83,7 +83,7 @@ namespace SerMais.Controllers
                 if (profissional != null)
                 {
                     profissional.ATIVO = 2;
-                    _profissionalRepositorio.Atualizar(profissional);
+                    _profissionalRepositorio.AtualizaAtivoProfissional(profissional);
                     EmailController.SendDeclined(modalId, _profissionalRepositorio);
                     TempData["MensagemRecusada"] = $"Profissional {modalNome} recusada com sucesso";
                     return RedirectToAction("ProfissionaisPendentes");

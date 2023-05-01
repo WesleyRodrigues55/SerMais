@@ -12,11 +12,21 @@ namespace SerMais.Repositorio
          {
              _bancoContext = bancoContext;
          }
-        public void Atualizar(ProfissionalModel profissional)
+        public void AtualizaAtivoProfissional(ProfissionalModel profissional)
         {
             _bancoContext.Entry(profissional).State = EntityState.Modified;
             _bancoContext.SaveChanges();
         }
+
+        public ProfissionalModel Inserir(ProfissionalModel profissional)
+        {
+            _bancoContext.Entry(profissional).State = EntityState.Added;
+            _bancoContext.SaveChanges();
+
+            return profissional;
+        }
+
+
         public ProfissionalModel ObterPorId(int id)
         {
             return _bancoContext.PROFISSIONAL.FirstOrDefault(p => p.ID == id);
@@ -45,6 +55,12 @@ namespace SerMais.Repositorio
             return null;
 
             //return profissional?.EMAIL;
+        }
+
+        public ProfissionalModel BuscaCrp(string crp)
+        {
+            return _bancoContext.PROFISSIONAL
+                .FirstOrDefault(p => p.CRP == crp);
         }
     }
 }

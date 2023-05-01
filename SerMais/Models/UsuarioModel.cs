@@ -13,9 +13,9 @@ namespace SerMais.Models
         [StringLength(50)]
         public string SENHA { get; set; }
 
-        public int POLITICA { get; set; }
+        public int POLITICA { get; set; } = 0;
 
-        public int ATIVO { get; set; }
+        public int ATIVO { get; set; } = 0;
 
         //relação
         public ProfissionalModel ID_PROFISSIONAL { get; set; }
