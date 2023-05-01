@@ -8,9 +8,9 @@ namespace SerMais.Models
         public int ID { get; set; }
  
         [StringLength(50)]
-        public string USUARIO { get; set; }
+        public string EMAIL { get; set; }
  
-        [StringLength(50)]
+        [StringLength(64)]
         public string SENHA { get; set; }
 
         public int POLITICA { get; set; } = 0;

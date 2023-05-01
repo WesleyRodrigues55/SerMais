@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model UsuarioModel
 
 @*É usado para adicionar uma folha de estilo apenas para essa View, e é referenciado no _Layout*@
 @section CSS {
@@ -19,12 +15,12 @@
                     <div class="usuario-senha">
                         <form asp-controller="Login" asp-action="ValidaLogin" method="post">
                             <div class="mb-3 d-flex align-items-center">
-                                <input class="w-100 form-control input-login" type="text" placeholder="Usuario" />
+                                <input class="w-100 form-control input-login" asp-for="EMAIL" type="email" placeholder="E-mail" required />
                                 <i class="bi bi-person-fill icon-login"></i>
                             </div>
 
                             <div class="mb-3 d-flex align-items-center">
-                                <input class="mb- w-100 form-control input-login" id="password" type="password" placeholder="Senha" />
+                                <input class="mb- w-100 form-control input-login" asp-for="SENHA" id="password" type="password" placeholder="Senha" required />
                                 <i class="bi bi-eye-slash-fill icon-login icon-password"></i>
                             </div>
 
@@ -34,6 +30,13 @@
                             <a asp-controller="Login" asp-action="EsqueceuSenha"> Esqueci minha senha! </a>
                             <br /><a asp-controller="Login" asp-action="Registrar"> Ainda não possui cadastro? Crie uma conta! </a>
                         </div>
+                        @if (TempData["MensagemErroCredenciais"] != null)
+                        {
+                            <br />
+                            <div class="alert alert-danger" role="alert" id="mensagem">
+                                @TempData["MensagemErroCredenciais"]
+                            </div>
+                        }
                     </div>
 
                 </div>
@@ -64,4 +67,12 @@
             input.setAttribute('type', 'password');
         }
     });
+
+     $(document).ready(function () {
+        if ($(".alert-danger").length > 0) {
+            setTimeout(function () {
+                $(".alert-danger").slideUp(500);
+            }, 8000);
+        }
+     });
 </script>

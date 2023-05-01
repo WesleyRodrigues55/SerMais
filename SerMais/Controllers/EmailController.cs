@@ -24,6 +24,12 @@ namespace SerMais.Controllers
             return assunto;
         }
 
+        public static string SubjectCreateAccount(string nome)
+        {
+            string assunto = $"Parabéns {nome} você acabou de criar uma conta na plataforma SerMais!";
+            return assunto;
+        }
+
         public static string ContentAcceptedEmail(string nome)
         {
             string content =
@@ -44,6 +50,18 @@ namespace SerMais.Controllers
                 $"<p>Mas não fique triste, poderá voltar aqui futuramente e tentar a aprovação de novo.</p>" +
                 $"<hr>" +
                 $"<p>A SerMais agradece por sua colaboração.</p>" +
+                $"<hr>" +
+                $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
+            return content;
+        }
+
+        public static string ContentCreateAccount(string nome)
+        {
+            string content =
+                $"<h1>Parabéns {nome} você acabou de criar uma conta na plataforma SerMais!</h1>" +
+                $"<p>Em breve enviaremos um e-mail para você confirmando sua aprovação na plataforma, aguarde..." +
+                $"<hr>" +
+                $"<p>A SerMais agradeçe pela sua preferência e paciência.</p>" +
                 $"<hr>" +
                 $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
             return content;
@@ -91,6 +109,16 @@ namespace SerMais.Controllers
             var subject = SubjectDeclinedEmail(profissional.NOME);
             var content = ContentDeclinedEmail(profissional.NOME);
             var message = ContentMessageEmail(profissional.NOME, profissional.EMAIL, subject, content);
+            Smtp(message);
+
+            return "Email enviado com sucesso!";
+        }
+
+        public static string SendCreateAccount(string email, string nome)
+        {
+            var subject = SubjectCreateAccount(nome);
+            var content = ContentCreateAccount(nome);
+            var message = ContentMessageEmail(nome, email, subject, content);
             Smtp(message);
 
             return "Email enviado com sucesso!";

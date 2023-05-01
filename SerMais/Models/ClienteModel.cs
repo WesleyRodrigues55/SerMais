@@ -13,6 +13,10 @@ namespace SerMais.Models
         [StringLength(100)]
         public string EMAIL { get; set; }
 
+        [StringLength(64)]
+        public string SENHA { get; set; }
+
+
         [DataType(DataType.Date)]
         public DateTime DT_NASCIMENTO { get; set; }
 

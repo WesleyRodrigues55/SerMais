@@ -1,9 +1,12 @@
 ﻿using Azure.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using SerMais.Models;
 using SerMais.Repositorio;
+using System.Text;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using System.Security.Cryptography;
 
 namespace SerMais.Controllers
 {
@@ -20,9 +23,9 @@ namespace SerMais.Controllers
             _usuarioRepositorio = usuarioRepositorio;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(UsuarioModel usuario)
         {
-            return View();
+            return View(usuario);
         }
 
 
@@ -35,12 +38,28 @@ namespace SerMais.Controllers
         // que indica que usuario ou senha estão incorretos
 
         [HttpPost]
-        public IActionResult ValidaLogin()
+        public IActionResult ValidaLogin(UsuarioModel usuario)
         {
-            // Armazena um valor na sessão do usuário
-            HttpContext.Session.SetString("username", "wesley");
+            usuario.SENHA = criptografarSenha(usuario.SENHA);
+            var checked_usuario = _usuarioRepositorio.ValidaLogin(usuario);
+            if (checked_usuario != null)
+            {
+                // Armazena um valor na sessão do usuário
+                HttpContext.Session.SetString("username", checked_usuario.NOME);
+                HttpContext.Session.SetInt32("nivel", checked_usuario.NIVEL);
+                HttpContext.Session.SetInt32("id", checked_usuario.ID);
 
-            return RedirectToAction("Index", "Administrador");
+                if (checked_usuario.NIVEL == 1)
+                {
+                    return RedirectToAction("Portfolio", "Profissionais", new { id = checked_usuario.ID, nome = checked_usuario.NOME });
+
+                } else if (checked_usuario.NIVEL == 2)
+                {
+                    return RedirectToAction("Index", "Administrador");
+                }
+            }
+            TempData["MensagemErroCredenciais"] = $"Suas credenciais estão incorretas, ou ainda você não foi aprovado em nossa plataforma.";
+            return RedirectToAction("Index", "Login");
         }
 
         public IActionResult Registrar(ProfissionalModel profissional, UsuarioModel usuario)
@@ -72,6 +91,17 @@ namespace SerMais.Controllers
             return profissional;
         }
 
+        public static string criptografarSenha(string senha)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(senha);
+                byte[] hash = sha256.ComputeHash(bytes);
+                string senhaCriptografada = BitConverter.ToString(hash).Replace("-", "").ToLower();
+                return senhaCriptografada;
+            }
+        }
+
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
@@ -80,8 +110,10 @@ namespace SerMais.Controllers
             {
                 var profissionalInserido = _profissionalRepositorio.Inserir(profissional);
                 usuario.ID_PROFISSIONAL = profissionalInserido;
+                usuario.SENHA = criptografarSenha(usuario.SENHA);
                 _usuarioRepositorio.Inserir(usuario);
                 checkedFile(profissional);
+                EmailController.SendCreateAccount(profissional.EMAIL, profissional.NOME);
                 TempData["MensagemSucesso"] = $"Cadastro realizado com sucesso, te enviaremos um e-mail com mais detalhes sobre o procedimento.";
                 return RedirectToAction("Registrar", "Login");
             }

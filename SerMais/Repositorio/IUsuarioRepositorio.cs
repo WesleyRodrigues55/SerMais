@@ -7,5 +7,6 @@ namespace SerMais.Repositorio
         void Inserir(UsuarioModel usuario);
         void Atualizar(UsuarioModel usuario);
         UsuarioModel ObterPorId(int id);
+        ProfissionalModel ValidaLogin(UsuarioModel usuario);
     }
 }

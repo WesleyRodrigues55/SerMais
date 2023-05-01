@@ -46,10 +46,14 @@ namespace SerMais.Models
         [StringLength(100)]
         public string CIDADE { get; set; }
 
+        [StringLength(100)]
+        public string ESTADO { get; set; }
+
         [StringLength(50)]
         public string NUMERO { get; set; }
 
         [StringLength(100)]
+        [Required(AllowEmptyStrings = false)]
         public string COMPLEMENTO { get; set; }
 
         public string OBSERVACAO { get; set; }
