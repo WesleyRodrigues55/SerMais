@@ -12,15 +12,15 @@ using SerMais.Data;
 namespace SerMais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20230406201148_RelacaoUsuarioProfissionalEConsulta")]
-    partial class RelacaoUsuarioProfissionalEConsulta
+    [Migration("20230503210547_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -71,6 +71,11 @@ namespace SerMais.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("SENHA")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("TELEFONE")
                         .IsRequired()
@@ -126,6 +131,57 @@ namespace SerMais.Migrations
                     b.ToTable("CONSULTA");
                 });
 
+            modelBuilder.Entity("SerMais.Models.PortfolioModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ATENDE_CONSULTA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CELULAR")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DURACAO_SESSAO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EMAIL")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ESPECIALIDADE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FORMACAO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FORMAS_PAGAMENTO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ID_PROFISSIONALID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SOBRE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TELEFONE")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<double?>("VALOR_CONSULTA")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ID_PROFISSIONALID");
+
+                    b.ToTable("PORTFOLIO");
+                });
+
             modelBuilder.Entity("SerMais.Models.ProfissionalModel", b =>
                 {
                     b.Property<int>("ID")
@@ -174,8 +230,10 @@ namespace SerMais.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ID_TIPO_PROFISSIONALID")
-                        .HasColumnType("int");
+                    b.Property<string>("ESTADO")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("NIVEL")
                         .HasColumnType("int");
@@ -219,8 +277,6 @@ namespace SerMais.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ID_TIPO_PROFISSIONALID");
-
                     b.ToTable("PROFISSIONAL");
                 });
 
@@ -242,26 +298,6 @@ namespace SerMais.Migrations
                     b.ToTable("TIPO_CONSULTA_MODEL");
                 });
 
-            modelBuilder.Entity("SerMais.Models.TipoProfissionalModel", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("ATIVO")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NOME_TIPO_PROFISSIONAL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TIPO_PROFISSIONAL");
-                });
-
             modelBuilder.Entity("SerMais.Models.UsuarioModel", b =>
                 {
                     b.Property<int>("ID")
@@ -273,6 +309,11 @@ namespace SerMais.Migrations
                     b.Property<int>("ATIVO")
                         .HasColumnType("int");
 
+                    b.Property<string>("EMAIL")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("ID_PROFISSIONALID")
                         .HasColumnType("int");
 
@@ -281,13 +322,8 @@ namespace SerMais.Migrations
 
                     b.Property<string>("SENHA")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("USUARIO")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("ID");
 
@@ -334,15 +370,15 @@ namespace SerMais.Migrations
                     b.Navigation("ID_TIPO_CONSULTA");
                 });
 
-            modelBuilder.Entity("SerMais.Models.ProfissionalModel", b =>
+            modelBuilder.Entity("SerMais.Models.PortfolioModel", b =>
                 {
-                    b.HasOne("SerMais.Models.TipoProfissionalModel", "ID_TIPO_PROFISSIONAL")
+                    b.HasOne("SerMais.Models.ProfissionalModel", "ID_PROFISSIONAL")
                         .WithMany()
-                        .HasForeignKey("ID_TIPO_PROFISSIONALID")
+                        .HasForeignKey("ID_PROFISSIONALID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ID_TIPO_PROFISSIONAL");
+                    b.Navigation("ID_PROFISSIONAL");
                 });
 
             modelBuilder.Entity("SerMais.Models.UsuarioModel", b =>

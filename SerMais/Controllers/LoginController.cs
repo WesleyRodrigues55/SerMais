@@ -83,7 +83,7 @@ namespace SerMais.Controllers
             if (profissional.FILE != null)
             {
                 var uniqueFileName = GetUniqueFileName(profissional.FILE.FileName);
-                var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "uploads");
+                var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "uploads/curriculos");
                 var filePath = Path.Combine(uploads, uniqueFileName);
                 profissional.FILE.CopyTo(new FileStream(filePath, FileMode.Create));
             }

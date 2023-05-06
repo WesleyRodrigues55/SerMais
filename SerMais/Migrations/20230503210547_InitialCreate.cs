@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SerMais.Migrations
 {
     /// <inheritdoc />
-    public partial class RelacaoUsuarioProfissionalEConsulta : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,6 +19,7 @@ namespace SerMais.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NOME_COMPLETO = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     EMAIL = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    SENHA = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     DT_NASCIMENTO = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TELEFONE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ATIVO = table.Column<int>(type: "int", nullable: false)
@@ -26,33 +27,6 @@ namespace SerMais.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CLIENTE", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TIPO_CONSULTA_MODEL",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NOME_TIPO_CONSULTA = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TIPO_CONSULTA_MODEL", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TIPO_PROFISSIONAL",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NOME_TIPO_PROFISSIONAL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ATIVO = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TIPO_PROFISSIONAL", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,23 +47,30 @@ namespace SerMais.Migrations
                     RUA = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     BAIRRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CIDADE = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ESTADO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     NUMERO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     COMPLEMENTO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     OBSERVACAO = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ATIVO = table.Column<int>(type: "int", nullable: false),
                     NIVEL = table.Column<int>(type: "int", nullable: false),
-                    STATUS = table.Column<int>(type: "int", nullable: false),
-                    ID_TIPO_PROFISSIONALID = table.Column<int>(type: "int", nullable: false)
+                    STATUS = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PROFISSIONAL", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PROFISSIONAL_TIPO_PROFISSIONAL_ID_TIPO_PROFISSIONALID",
-                        column: x => x.ID_TIPO_PROFISSIONALID,
-                        principalTable: "TIPO_PROFISSIONAL",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TIPO_CONSULTA_MODEL",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NOME_TIPO_CONSULTA = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TIPO_CONSULTA_MODEL", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,13 +100,42 @@ namespace SerMais.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PORTFOLIO",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ESPECIALIDADE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VALOR_CONSULTA = table.Column<double>(type: "float", nullable: true),
+                    FORMAS_PAGAMENTO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DURACAO_SESSAO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ATENDE_CONSULTA = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TELEFONE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CELULAR = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    EMAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    FORMACAO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SOBRE = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ID_PROFISSIONALID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PORTFOLIO", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PORTFOLIO_PROFISSIONAL_ID_PROFISSIONALID",
+                        column: x => x.ID_PROFISSIONALID,
+                        principalTable: "PROFISSIONAL",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "USUARIO",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    USUARIO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SENHA = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    EMAIL = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SENHA = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     POLITICA = table.Column<int>(type: "int", nullable: false),
                     ATIVO = table.Column<int>(type: "int", nullable: false),
                     ID_PROFISSIONALID = table.Column<int>(type: "int", nullable: false)
@@ -193,9 +203,9 @@ namespace SerMais.Migrations
                 column: "ID_TIPO_CONSULTAID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PROFISSIONAL_ID_TIPO_PROFISSIONALID",
-                table: "PROFISSIONAL",
-                column: "ID_TIPO_PROFISSIONALID");
+                name: "IX_PORTFOLIO_ID_PROFISSIONALID",
+                table: "PORTFOLIO",
+                column: "ID_PROFISSIONALID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_USUARIO_ID_PROFISSIONALID",
@@ -208,6 +218,9 @@ namespace SerMais.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CONSULTA");
+
+            migrationBuilder.DropTable(
+                name: "PORTFOLIO");
 
             migrationBuilder.DropTable(
                 name: "USUARIO");
@@ -223,9 +236,6 @@ namespace SerMais.Migrations
 
             migrationBuilder.DropTable(
                 name: "PROFISSIONAL");
-
-            migrationBuilder.DropTable(
-                name: "TIPO_PROFISSIONAL");
         }
     }
 }

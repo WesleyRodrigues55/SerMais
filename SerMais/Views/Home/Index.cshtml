@@ -1,4 +1,5 @@
-﻿@section CSS {
+﻿@model List<PortfolioModel>
+@section CSS {
     <link rel="stylesheet" href="~/css/home.css" />
 }
 
@@ -31,52 +32,47 @@
         <p class="text-center"><b>Veja os profissionais disponíveis:</b></p>
 
 
-        @*Informações abaixo virão do banco*@
+         
+
+        @*<div class="col-md-3 mt-2">
+            <div class="box-profissionais text-center">
+                <img src="~/img/home/profisisonal.png" alt="profissional" />
+                <p>
+                    <b>
+                        <span>Bruno Oliveira </span>
+                        <br />
+                        <span>CRP: 0000000</span>
+                    </b>
+                </p>
+                <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
+                <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="1" asp-route-nome="wesley">Saiba mais!</a></p>
+            </div>
+        </div>
+*@
+
         <div class="row">
-            <div class="col-md-3 mt-2">
-                <div class="box-profissionais text-center">
-                    <img src="~/img/home/profisisonal.png" alt="profissional" />
-                    <p>
-                        <b>
-                            <span>Bruno Oliveira </span>
-                            <br />
-                            <span>CRP: 0000000</span>
-                        </b>
-                    </p>
-                    <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
-                    <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="1" asp-route-nome="wesley">Saiba mais!</a></p>
+            @*Informações abaixo vindo do banco*@
+            @if (Model != null && Model.Any())
+            {
+                foreach (PortfolioModel p in Model)
+                {
+                <div class="col-md-3 mt-2">
+                    <div class="box-profissionais text-center">
+                        <img src="~/img/profiles/@p.IMAGEM_PROFILE" alt="@p.IMAGEM_PROFILE" />
+                        <p>
+                            <b>
+                                <span>@p.ID_PROFISSIONAL.NOME</span>
+                                <br />
+                                <span>CRP: @p.ID_PROFISSIONAL.CRP</span>
+                            </b>
+                        </p>
+                        <p>@p.SOBRE</p>
+                        <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@p.ID_PROFISSIONAL.ID" asp-route-nome="@p.ID_PROFISSIONAL.NOME">Saiba mais!</a></p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-md-3 mt-2">
-                <div class="box-profissionais text-center">
-                    <img src="~/img/home/profisisonal.png" alt="profissional" />
-                    <p>
-                        <b>
-                            <span>Bruno Oliveira </span>
-                            <br />
-                            <span>CRP: 0000000</span>
-                        </b>
-                    </p>
-                    <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
-                    <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="1" asp-route-nome="wesley">Saiba mais!</a></p>
-                </div>
-            </div>
-
-            <div class="col-md-3 mt-2">
-                <div class="box-profissionais text-center">
-                    <img src="~/img/home/profisisonal.png" alt="profissional" />
-                    <p>
-                        <b>
-                            <span>Bruno Oliveira </span>
-                            <br />
-                            <span>CRP: 0000000</span>
-                        </b>
-                    </p>
-                    <p>Olá, meu nome é Bruno de Oliveira, sou psicólogo e especialista em psicologia clínica ...</p>
-                    <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="1" asp-route-nome="wesley">Saiba mais!</a></p>
-                </div>
-            </div>
+                }
+            }
+            @*Fim informações do banco*@
 
             <div class="col-md-3 mt-2">
                 <div class="box-profissionais d-flex align-items-center justify-content-center flex-column h-100 text-center">
@@ -86,7 +82,8 @@
                 </div>
             </div>
         </div>
-        @*Fim informações do banco*@
+        @*fim row*@
+
 
         <h2 class="text-center mt-5 mb-4">Como funciona a terapia online?</h2>
 

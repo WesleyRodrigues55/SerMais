@@ -18,6 +18,7 @@ namespace SerMais.Data
         public DbSet<AgendamentoModel> AGENDAMENTO { get; set;}
         public DbSet<ConsultaModel> CONSULTA { get; set; }
         public DbSet<TipoConsultaModel> TIPO_CONSULTA_MODEL { get; set; }
+        public DbSet<PortfolioModel> PORTFOLIO { get; set; }
 
     }
 }

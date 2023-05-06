@@ -1,13 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SerMais.Models;
+using SerMais.Repositorio;
 
 namespace SerMais.Controllers
 {
     public class ProfissionaisController : Controller
     {
+        private readonly IPortfolioRepositorio _portfolioRepositorio;
+
+        public ProfissionaisController(IPortfolioRepositorio portfolioRepositorio)
+        {
+            _portfolioRepositorio = portfolioRepositorio;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var portfolio = _portfolioRepositorio.BuscarTodos();
+            return View(portfolio);
         }
 
         // aqui virá regras do portfólio do usuário
@@ -22,12 +31,9 @@ namespace SerMais.Controllers
                 return RedirectToAction("Index", "Error");
             }
 
-            var model = new ProfissionalModel
-            {
-                ID = id,
-                NOME = nome
-            };
-            return View(model);
+            var profissionais = _portfolioRepositorio.BuscaPorIdENome(id);
+
+            return View(profissionais);
         }
     }
 }

@@ -12,15 +12,15 @@ using SerMais.Data;
 namespace SerMais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20230501225518_AttComplementoNulo")]
-    partial class AttComplementoNulo
+    [Migration("20230504001015_addFileModelPortfolio")]
+    partial class addFileModelPortfolio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -129,6 +129,60 @@ namespace SerMais.Migrations
                     b.HasIndex("ID_TIPO_CONSULTAID");
 
                     b.ToTable("CONSULTA");
+                });
+
+            modelBuilder.Entity("SerMais.Models.PortfolioModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("ATENDE_CONSULTA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CELULAR")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DURACAO_SESSAO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EMAIL")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ESPECIALIDADE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FORMACAO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FORMAS_PAGAMENTO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ID_PROFISSIONALID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IMAGEM_PROFILE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SOBRE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TELEFONE")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<double?>("VALOR_CONSULTA")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ID_PROFISSIONALID");
+
+                    b.ToTable("PORTFOLIO");
                 });
 
             modelBuilder.Entity("SerMais.Models.ProfissionalModel", b =>
@@ -317,6 +371,17 @@ namespace SerMais.Migrations
                     b.Navigation("ID_AGENDAMENTO");
 
                     b.Navigation("ID_TIPO_CONSULTA");
+                });
+
+            modelBuilder.Entity("SerMais.Models.PortfolioModel", b =>
+                {
+                    b.HasOne("SerMais.Models.ProfissionalModel", "ID_PROFISSIONAL")
+                        .WithMany()
+                        .HasForeignKey("ID_PROFISSIONALID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ID_PROFISSIONAL");
                 });
 
             modelBuilder.Entity("SerMais.Models.UsuarioModel", b =>

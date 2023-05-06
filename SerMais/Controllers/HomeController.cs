@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SerMais.Models;
+using SerMais.Repositorio;
 using System.Diagnostics;
 
 namespace SerMais.Controllers
@@ -7,15 +8,18 @@ namespace SerMais.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPortfolioRepositorio _portfolioRepositorio;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPortfolioRepositorio portfolioRepositorio)
         {
             _logger = logger;
+            _portfolioRepositorio= portfolioRepositorio;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var portfolios = _portfolioRepositorio.BuscarTodos();
+            return View(portfolios);
         }
 
         public IActionResult Privacy()

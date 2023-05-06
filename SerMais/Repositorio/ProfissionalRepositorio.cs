@@ -26,11 +26,11 @@ namespace SerMais.Repositorio
             return profissional;
         }
 
-
         public ProfissionalModel ObterPorId(int id)
         {
             return _bancoContext.PROFISSIONAL.FirstOrDefault(p => p.ID == id);
         }
+
         public List<ProfissionalModel> BuscarTodos()
         {
             return _bancoContext.PROFISSIONAL
