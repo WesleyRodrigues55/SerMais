@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/como-funciona.css" />
+}
+
+@Html.Partial("_Navegacao")
+
+<div class="banner-como-funciona">
+    <div class="d-flex justify-content-center align-items-center flex-column h-100">
+        <div class="box-title-banner-como-funciona">
+        <h1 class="h1-white text-center">Quer fazer parte da SerMais?<br />Clique no botão abaixo para saber mais!</h1>
+        </div>
+        <div class="d-flex box-button-banner-como-funciona">
+            <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="Login" asp-action="Registrar">Saiba mais</a>
+        </div>
+    </div>
+</div>
+
+
+<main class="container my-4 py-3">
+
+    <h2>A SerMais vai trazer pacientes para você</h2>
+    <p>Foque nos seus atendimentos e deixe a gente usar nossa experiência para trazer os pacientes até você.</p>
+
+    <br />
+    <h2>Escolha a plataforma de atendimento</h2>
+    <p>Versatilidade! Você e seu paciente escolherão a plataforma de atendimento.<br />Pode ser WhatsApp, Zoom, Google Meets ou qualquer outra plataforma criptografada.</p>
+
+
+    <br />
+    <h4>1. Vantagens da SerMais</h4>
+    <p>A SerMais é uma plataforma online que visa atender pacientes de todo o mundo, com facilidade e praticidade na hora de agendar a consulta. E as vantagens não são pensadas apenas para os pacientes, mas também para os psicólogos. Sabemos que não é tão simples montar uma estrutura personalizada para realizar atendimentos psicoterápicos e é um trabalho muito detalhado, minucioso e de anos para se estabelecer no mercado.</p>
+    <p>Por isso, criamos o site SerMais para que o profissional foque somente em seus atendimentos.</p>
+
+    <br />
+    <h4>2. Como é para os pacientes?</h4>
+    <p>A SerMais é uma plataforma altamente intuitiva e prática. Pensamos em cada detalhe para que a experiência do paciente ao agendar a sua consulta seja a melhor possível. Da maneira que a plataforma foi construída, qualquer pessoa, de qualquer idade, poderá entender e tirar as dúvidas que surgirem.</p>
+
+    <br />
+    <h4>3. Como é para os psicólogos?</h4>
+    <p>O primeiro contato do paciente com a plataforma é feito inteiramente pela SerMais: esclarecimento de dúvidas, recebimento do valor da primeira sessão, repasse desse valor ao psicólogo e agendamentos.</p>
+    <p>A continuidade do tratamento, ou seja, da segunda consulta em diante, pagamentos e pendências deverão ser combinados sempre entre psicólogo e paciente. Além de criar um vínculo maior entre ambos, nos permite maior foco e atenção na captação de novos pacientes.</p>
+
+    <br />
+    <h4>4. Quanto custa para o psicólogo?</h4>
+    <p>texto que diz que não custa nada...</p>
+    
+    <br />
+    <div class="d-flex box-button-banner-como-funciona">
+        <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="Login" asp-action="Registrar">Saiba mais</a>
+    </div>
+
+
+</main>
+
+@Html.Partial("_Rodape")

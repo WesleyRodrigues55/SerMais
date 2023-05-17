@@ -1,4 +1,10 @@
-﻿@model List<PortfolioModel>;
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+@model PortfolioViewModel;
+
+@{
+    // crio a variavel username para que caso haja um usuário logado o método GetString pega esse username e salva
+    var username = HttpContextAccessor.HttpContext.Session.GetString("username");
+}
 
 @section CSS {
     <link rel="stylesheet" href="~/css/portfolio.css" />
@@ -7,73 +13,83 @@
 @Html.Partial("_Navegacao")
 
 <main class="container my-5">
-    <h1>Sou a página do profissional</h1>
 
-    <div class="row">
-
-        @*Informações abaixo vindo do banco*@
-        @if (Model != null && Model.Any())
+    <div class="row border p-3">
+        @if (TempData["MensagemSucesso"] != null)
         {
-            foreach (PortfolioModel p in Model)
+            <div class="alert alert-success" role="alert" id="mensagem">
+                @TempData["MensagemSucesso"]
+            </div>
+        }
+        @*Informações abaixo vindo do banco*@
+        @if (Model != null && Model.Profissionais.Any())
+        {
+            foreach (PortfolioModel p in Model.Profissionais)
             {
-                <div class="col-md-12 my-3">
-                    <div class="row box-profissional">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="p-2">
-                                <div class="row">
-                                    <div class="col-12 col-md-6 box-img-profissional">
-                                        <img class="img-profissional" src="~/img/profiles/@p.IMAGEM_PROFILE" alt="imagem do profissional" />
-                                    </div>
-                                    <div class="col-12 col-md-6 p-2 box-about-profissional">
-                                        <p><b>@p.ID_PROFISSIONAL.NOME_COMPLETO</b></p>
-                                        <p>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                        </p>
-                                        <p><span>Psicólogo</span> | <span>@p.ID_PROFISSIONAL.CIDADE | @p.ID_PROFISSIONAL.ESTADO</span></p>
-                                        <p><b>CRP: </b>@p.ID_PROFISSIONAL.CRP</p>
-                                        <p>@p.ESPECIALIDADE</p>
-                                    </div>
-                                </div>
-                                <div class="py-2 box-about-profissional">
-                                    <div class="">
-                                        <h5>R$ @p.VALOR_CONSULTA</h5>
-                                        <p>
-                                            <i class="bi bi-currency-dollar icon-portfolio"></i><b> Pague com: </b>@p.FORMAS_PAGAMENTO
-                                        </p>
-                                    </div>
-                                    <p><i class="bi bi-alarm icon-portfolio"></i><b> Duração da sessão: </b>@p.DURACAO_SESSAO</p>
-                                    <p><i class="bi bi-people-fill icon-portfolio"></i><b> Atende: </b>@p.ATENDE_CONSULTA</p>
-                                    <p><i class="bi bi-telephone-fill icon-portfolio"></i> @p.TELEFONE</p>
-                                    <p><i class="bi bi-whatsapp icon-portfolio"></i> @p.CELULAR</p>
-                                </div>
-                            </div>
+                <div class="col-md-12 d-flex justify-content-end">
+                    @if (@username != null)
+                    {
+                        <p>
+
+                            <a class="px-4 botao" data-bs-toggle="modal" data-bs-target="#edit" data-id="@p.ID_PROFISSIONAL.ID"><i class="bi bi-pencil-square icon-portfolio"></i> Editar perfil</a>
+                            </p>
+                        <br />
+
+                        <br />
+                    }
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <div class="row">
+                        <div class="col-12 col-md-12 box-img-profissional">
+                            <img class="img-profissional" src="~/img/profiles/@p.IMAGEM_PROFILE" alt="imagem do profissional" />
                         </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="h-100 d-flex align-items-center justify-content-center">
-                                <p>Aqui seria o calendário</p>
+                        <div class="col-12 col-md-12 py-2 box-about-profissional">
+                            <div class="">
+                                <h5>R$ @p.VALOR_CONSULTA</h5>
+                                <p>
+                                    <i class="bi bi-currency-dollar icon-portfolio"></i><b> Pague: </b>@p.FORMAS_PAGAMENTO
+                                </p>
                             </div>
+                            <p><i class="bi bi-alarm icon-portfolio"></i><b> Duração da sessão: </b>@p.DURACAO_SESSAO</p>
+                            <p><i class="bi bi-people-fill icon-portfolio"></i><b> Atende: </b>@p.ATENDE_CONSULTA</p>
+                            <p><i class="bi bi-telephone-fill icon-portfolio"></i> @p.TELEFONE</p>
+                            <p><i class="bi bi-whatsapp icon-portfolio"></i> @p.CELULAR</p>
+                            <p><i class="bi bi-envelope-fill icon-portfolio"></i> @p.EMAIL</p>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="col-md-12">
-                            <div class="my-4">
-                                <h5>FORMAÇÃO E CURSOS</h5>
-                                <p>@p.FORMACAO</p>
-                            </div>
-                            <div class="my-4">
-                                <h5>SOBRE MIM</h5>
-                                <p>@p.SOBRE</p>
-                            </div>
-                            <div class="my-4">
-                                <h5>AVALIAÇÃO DO PROFISSIONAL</h5>
+                <div class="col-md-9 col-lg-6">
+                    <div class="box-about-profissional">
+                        <h1 style="margin-bottom: 0">@p.ID_PROFISSIONAL.NOME_COMPLETO</h1>
+                        <p>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </p>
+                        <p><span>Psicólogo</span> | <span>@p.ID_PROFISSIONAL.CIDADE | @p.ID_PROFISSIONAL.ESTADO</span></p>
+                        <p><b>CRP: </b>@p.ID_PROFISSIONAL.CRP</p>
+                        <p>@p.ESPECIALIDADE</p>
+                    </div>
+                    <div class="my-4">
+                        <h5>FORMAÇÃO E CURSOS</h5>
+                        <p>@p.FORMACAO</p>
+                    </div>
+                    <div class="my-4">
+                        <h5>SOBRE MIM</h5>
+                        <p>@p.SOBRE</p>
+                    </div>
+                    <div class="my-4">
+                        <h5>AVALIAÇÃO DO PROFISSIONAL</h5>
 
-                            </div>
+                    </div>
+                </div>
 
-
-                        </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="h-100 d-flex align-items-center justify-content-center">
+                        <p>Aqui seria o calendário</p>
                     </div>
                 </div>
             }
@@ -81,10 +97,123 @@
         @*Fim informações do banco*@
 
         @*profissional*@
-        
+
     </div>
     @*fim row*@
 
 </main>
 
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Informações</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @*Informações abaixo vindo do banco*@
+                @if (Model != null && Model.Profissionais.Any())
+                {
+                    foreach (PortfolioModel p in Model.Profissionais)
+                    {
+                        <form asp-controller="Administrador" asp-action="AceitarProfissional" method="post">
+                            <div class="form-group my-2">
+                                <label>ID do Profissional</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.ID_PROFISSIONAL.ID" value="@p.ID_PROFISSIONAL.ID" readonly />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Imagem de perfil</label>
+                                <input type="file" class="form-control w-100" asp-for="Portfolio.IMAGEM" value="@p.IMAGEM_PROFILE" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Nome Profissional</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.NOME_PROFISSIONAL" value="@p.NOME_PROFISSIONAL" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>E-mail</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.EMAIL" value="@p.EMAIL" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Celular de contato</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.CELULAR" value="@p.CELULAR" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Telefone de contato</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.TELEFONE" value="@p.TELEFONE" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Atende quais tipos de consultas</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.ATENDE_CONSULTA" value="@p.ATENDE_CONSULTA" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Especialidade</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.ESPECIALIDADE" value="@p.ESPECIALIDADE" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Duração da Sessão</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.DURACAO_SESSAO" value="@p.DURACAO_SESSAO" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Valor da consulta</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.VALOR_CONSULTA" value="@p.VALOR_CONSULTA" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Formas de pagamento</label>
+                                <input type="text" class="form-control w-100" asp-for="Portfolio.FORMAS_PAGAMENTO" value="@p.FORMAS_PAGAMENTO" />
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Sobre</label>
+                                <textarea rows="4" class="form-control w-100" name="@Html.NameFor(s => s.Portfolio.SOBRE)">@p.SOBRE</textarea>
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label>Formação</label>
+                                <textarea rows="4" class="form-control w-100" name="@Html.NameFor(f => f.Portfolio.FORMACAO)">@p.FORMACAO</textarea>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn botao-outline px-4" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn botao px-4" asp-controller="Profissionais" asp-action="SalvarEdicao">Salvar</button>
+                            </div>
+                        </form>
+                    }
+                }
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 @Html.Partial("_Rodape")
+
+<script>
+       $(document).ready(function () {
+        if ($(".alert-success").length > 0) {
+            setTimeout(function () {
+                $(".alert-success").slideUp(500);
+            }, 8000);
+        }
+    });
+
+    $('#edit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botão que acionou o modal
+        var id = button.data('id'); // Extrai o ID da linha clicada
+        var modal = $(this);
+        modal.find('#modal-id').val(id);
+        console.log(id);
+    })
+
+
+</script>

@@ -7,7 +7,7 @@ namespace SerMais.Models
     {
         [Key]
         public int ID { get; set; }
-
+        public string? NOME_PROFISSIONAL { get; set; }
 
         public string? ESPECIALIDADE { get; set; }
 

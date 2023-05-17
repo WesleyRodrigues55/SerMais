@@ -14,6 +14,41 @@ namespace SerMais.Repositorio
             _bancoContext = bancoContext;
         }
 
+        public static string slug(string nome)
+        {
+            string slug = nome.ToLower();
+            slug = slug.Replace(" ", "-");
+
+            return slug;
+        }
+
+        public PortfolioModel SalvarSemImagem(PortfolioModel portfolio)
+        {
+            var p = _bancoContext.PORTFOLIO.FirstOrDefault(p => p.ID_PROFISSIONAL == portfolio.ID_PROFISSIONAL);
+            p.ESPECIALIDADE = portfolio.ESPECIALIDADE;
+            p.VALOR_CONSULTA = portfolio.VALOR_CONSULTA;
+            p.FORMAS_PAGAMENTO = portfolio.FORMAS_PAGAMENTO;
+            p.DURACAO_SESSAO = portfolio.DURACAO_SESSAO;
+            p.ATENDE_CONSULTA = portfolio.ATENDE_CONSULTA;
+            p.TELEFONE = portfolio.TELEFONE;
+            p.CELULAR = portfolio.CELULAR;
+            p.EMAIL = portfolio.EMAIL;
+            p.FORMACAO = portfolio.FORMACAO;
+            p.SOBRE = portfolio.SOBRE;
+            p.NOME_PROFISSIONAL = portfolio.NOME_PROFISSIONAL;
+            _bancoContext.SaveChanges();
+
+            return portfolio;
+        }
+
+        public PortfolioModel Salvar(PortfolioModel portfolio)
+        {
+            _bancoContext.Entry(portfolio).State = EntityState.Added;
+            _bancoContext.SaveChanges();
+
+            return portfolio;
+        }
+
         public List<PortfolioModel> BuscarTodos()
         {
             var result = _bancoContext.PORTFOLIO
@@ -30,6 +65,7 @@ namespace SerMais.Repositorio
                 portfolios.Add(new PortfolioModel
                 {
                     ID = item.Portfolio.ID,
+                    NOME_PROFISSIONAL = slug(item.Portfolio.NOME_PROFISSIONAL),
                     IMAGEM_PROFILE = item.Portfolio.IMAGEM_PROFILE,
                     SOBRE = item.Portfolio.SOBRE,
                     ESPECIALIDADE= item.Portfolio.ESPECIALIDADE,
@@ -69,13 +105,17 @@ namespace SerMais.Repositorio
                 {
                     ID = item.Portfolio.ID,
                     IMAGEM_PROFILE = item.Portfolio.IMAGEM_PROFILE,
+                    NOME_PROFISSIONAL = slug(item.Portfolio.NOME_PROFISSIONAL),
                     SOBRE = item.Portfolio.SOBRE,
                     ESPECIALIDADE = item.Portfolio.ESPECIALIDADE,
                     VALOR_CONSULTA = item.Portfolio.VALOR_CONSULTA,
                     DURACAO_SESSAO = item.Portfolio.DURACAO_SESSAO,
                     TELEFONE = item.Portfolio.TELEFONE,
                     CELULAR = item.Portfolio.CELULAR,
+                    EMAIL = item.Portfolio.EMAIL,
                     FORMACAO = item.Portfolio.FORMACAO,
+                    FORMAS_PAGAMENTO = item.Portfolio.FORMAS_PAGAMENTO,
+                    ATENDE_CONSULTA = item.Portfolio.ATENDE_CONSULTA,
                     ID_PROFISSIONAL = new ProfissionalModel
                     {
                         ID = item.Profissional.ID,

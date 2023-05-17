@@ -29,25 +29,28 @@
                         <li><a asp-controller="Home" asp-action="Index">Home</a></li>
 
                         @*Item 2*@
+                        <li><a asp-controller="Home" asp-action="ComoFunciona">Como Funciona?</a></li>
+
+                        @*Item 3*@
                         <li class="menu-item-has-children">
                             <a href="#">Sobre nós <i class="ion ion-ios-arrow-down"></i></a>
                             <div class="menu-subs menu-subs-mobile menu-column-1">
                                 <ul>
+                                    <li><a asp-controller="Home" asp-action="Sobre">Quem somos?</a></>
                                     <li><a asp-controller="Home" asp-action="Privacy">Política de Privacidade</a></>
-                                    <li><a asp-controller="Home" asp-action="Cookies">Política de Cookies</a></>
                                 </ul>
                             </div>
                         </li>                        
 
-                        @*Item 3*@
+                        @*Item 4*@
                         <li><a asp-controller="" asp-action="">Contato</a></li>
 
-                        @*Item 4*@
+                        @*Item 5*@
                         <li class="menu-item-has-children">
                             <a asp-controller="Profissionais" asp-action="Index">Profissionais</a>
                         </li>
 
-                        @*Item 5*@
+                        @*Item 6*@
                         <li class="menu-item-has-children">
                             <a href="#">Login <i class="ion ion-ios-arrow-down"></i></a>
                             <div class="menu-subs menu-subs-mobile menu-column-1" style="right: 140px">
@@ -59,16 +62,23 @@
                             </div>
                         </li>
 
-                        @*Item 6*@
+                        @*Item 7*@
                         @*aqui verifico se há um usuário com sessão iniciada, se sim, ele exibe o bloco abaixo, se não, ele ignora*@
                         @if (@username != null)
                         {
                             <li class="menu-item-has-children">
-                                <a href="#">Usuario <i class="ion ion-ios-arrow-down"></i></a>
+                                <a href="#">Perfil <i class="ion ion-ios-arrow-down"></i></a>
                                 <div class="menu-subs menu-subs-mobile menu-column-1">
                                     <ul>
-                                        <li><a asp-controller="Portfolio" asp-action="Index">Portfólio</a></li>
-                                        <li><a asp-controller="Autorizacao" asp-action="Logout" class="btn btn-warning w-100">Logout</a></li>
+                                        <li><a asp-controller="Portfolio" asp-action="Index" class="d-flex align-items-center">
+                                                <i class="bi bi-person-circle" style="font-size: 24px; margin-right: 8px"></i> Acessar Perfil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Autorizacao" asp-action="Logout" class="d-flex align-items-center">
+                                                <i class="bi bi-box-arrow-left" style="font-size: 24px; margin-right: 8px"></i> Logout
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

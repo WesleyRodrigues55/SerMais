@@ -12,6 +12,15 @@ namespace SerMais.Repositorio
         {
             _bancoContext = bancoContext;
         }
+
+        public static string slug(string nome)
+        {
+            string slug = nome.ToLower();
+            slug = slug.Replace(" ", "-");
+
+            return slug;
+        }
+
         public void Inserir(UsuarioModel usuario)
         {
             _bancoContext.Entry(usuario).State = EntityState.Added;
@@ -43,8 +52,8 @@ namespace SerMais.Repositorio
                 .Select(p => new ProfissionalModel
                 {
                     ID = p.Profissional.ID,
-                    NOME = p.Profissional.NOME,
-                    NIVEL = p.Profissional.NIVEL
+                    NOME = slug(p.Profissional.NOME),
+                    NIVEL = p.Profissional.NIVEL,
                 })
                 .FirstOrDefault();
         }

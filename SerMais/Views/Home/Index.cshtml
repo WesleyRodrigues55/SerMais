@@ -56,7 +56,7 @@
             {
                 foreach (PortfolioModel p in Model)
                 {
-                <div class="col-md-3 mt-2">
+                <div class="col-sm-12 col-md-6 col-lg-3 mt-2">
                     <div class="box-profissionais text-center">
                         <img src="~/img/profiles/@p.IMAGEM_PROFILE" alt="@p.IMAGEM_PROFILE" />
                         <p>
@@ -67,14 +67,14 @@
                             </b>
                         </p>
                         <p>@p.SOBRE</p>
-                        <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@p.ID_PROFISSIONAL.ID" asp-route-nome="@p.ID_PROFISSIONAL.NOME">Saiba mais!</a></p>
+                        <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@p.ID_PROFISSIONAL.ID" asp-route-nome="@p.NOME_PROFISSIONAL">Saiba mais!</a></p>
                     </div>
                 </div>
                 }
             }
             @*Fim informações do banco*@
 
-            <div class="col-md-3 mt-2">
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-2">
                 <div class="box-profissionais d-flex align-items-center justify-content-center flex-column h-100 text-center">
                     <i class="bi bi-arrow-right-circle icon-profissionais"></i>
                     <p>Veja outros profissionais clicando no botão abaixo</p>

@@ -30,10 +30,27 @@ namespace SerMais.Controllers
             {
                 return RedirectToAction("Index", "Error");
             }
-
             var profissionais = _portfolioRepositorio.BuscaPorIdENome(id);
+            var portfolio = new PortfolioModel();
 
-            return View(profissionais);
+            var viewModel = new PortfolioViewModel
+            {
+                Profissionais = profissionais,
+                Portfolio = portfolio
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult SalvarEdicao(PortfolioModel portfolio)
+        {
+            if (portfolio.IMAGEM == null)
+                _portfolioRepositorio.SalvarSemImagem(portfolio);
+            else
+                _portfolioRepositorio.Salvar(portfolio);
+
+            TempData["MensagemSucesso"] = $"Alterações salvas com sucesso!";
+            return RedirectToAction("Portfolio", "Profissionais", new { id = portfolio.ID_PROFISSIONAL.ID, nome = portfolio.NOME_PROFISSIONAL });
         }
     }
 }
