@@ -1,30 +1,27 @@
 ﻿@model UsuarioModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@inject IHttpContextAccessor HttpContextAccessor
 
 @{
-    int? id = ViewData["Id"] as int?;
-    string hash = ViewData["Hash"] as string;
+    var id_profissional = HttpContextAccessor.HttpContext.Session.GetInt32("id");
 }
-
-
-@*É usado para adicionar uma folha de estilo apenas para essa View, e é referenciado no _Layout*@
 @section CSS {
     <link rel="stylesheet" href="~/css/recuperacaosenha.css" />
 }
+
+
+@Html.Partial("_Navegacao")
+
 
 <div class="d-flex justify-content-center align-items-center h-100">
     <div class="container-fluid h-100">
         <div class="row h-100">
             <div class="col-md-12 col-lg-7 d-flex justify-content-center align-items-center box-1-login">
                 <div class="text-center">
-                    <h1>Recupere sua Senha :) </h1>
+                    <h1>Alterar senha</h1>
                     <br />
-                    <form class="usuario-senha" asp-controller="Login" asp-action="RecuperandoSenha" method="post">
+                    <form class="usuario-senha" asp-asp-controller="Login" asp-action="AlterandoSenhaLogado" method="post">
                         <div class="mb-3 d-flex align-items-center">
-                            <input class="w-100 form-control input-login" value="@id" asp-for="ID" id="id" type="hidden" readonly />
-                            <input class="w-100 form-control input-login" value="@hash" asp-for="TOKEN_RECUPERAR_SENHA" id="token" type="hidden" readonly />
+                            <input class="w-100 form-control input-login" value="@id_profissional" asp-for="ID_PROFISSIONAL.ID" id="id_profissional" type="hidden" readonly />
                         </div>
                         <p id="valida-igualdade" style="color: red; display: none;">Campos não estão iguais</p>
                         <div class="mb-3 d-flex align-items-center">
@@ -38,9 +35,8 @@
                         </div>
 
                         <input class="mb-3 w-100 btn btn-rounded-1 botao" id="btn-submit" type="submit" value="Confirmar" />
-
                     </form>
-                </div>
+                     </div>
             </div>
             <div class="col-md-12 col-lg-5 box-2-login">
                 <div class="logo" style="text-align: center">
@@ -55,6 +51,11 @@
         </div>
     </div>
 </div>
+
+
+
+
+@Html.Partial("_Rodape")
 
 
 <script>
@@ -102,5 +103,3 @@
 
 </script>
 
-
- 

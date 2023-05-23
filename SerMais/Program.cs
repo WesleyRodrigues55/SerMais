@@ -59,6 +59,10 @@ namespace SerMais
                 name: "default",
                 pattern: "{controller=Profissionais}/{action=Portfolio}/{id?}/{nome?}");
 
+            app.MapControllerRoute(
+               name: "default",
+               pattern: "{controller=Login}/{action=RecuperarSenha}/{id?}/{hash?}");
+
             app.Run();
         }
     }

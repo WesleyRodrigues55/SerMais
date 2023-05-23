@@ -7,10 +7,12 @@ namespace SerMais.Controllers
     public class ProfissionaisController : Controller
     {
         private readonly IPortfolioRepositorio _portfolioRepositorio;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public ProfissionaisController(IPortfolioRepositorio portfolioRepositorio)
+        public ProfissionaisController(IPortfolioRepositorio portfolioRepositorio, IUsuarioRepositorio usuarioRepositorio)
         {
             _portfolioRepositorio = portfolioRepositorio;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public IActionResult Index()
@@ -27,9 +29,9 @@ namespace SerMais.Controllers
         public IActionResult Portfolio([FromRoute] int id, [FromRoute] string nome)
         {
             if (id == 0 || string.IsNullOrEmpty(nome))
-            {
                 return RedirectToAction("Index", "Error");
-            }
+
+            //var checkedSession = _usuarioRepositorio.CheckedSession(id);
             var profissionais = _portfolioRepositorio.BuscaPorIdENome(id);
             var portfolio = new PortfolioModel();
 

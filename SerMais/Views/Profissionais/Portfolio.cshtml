@@ -3,7 +3,8 @@
 
 @{
     // crio a variavel username para que caso haja um usuário logado o método GetString pega esse username e salva
-    var username = HttpContextAccessor.HttpContext.Session.GetString("username");
+    //var username = HttpContextAccessor.HttpContext.Session.GetString("username");
+    var id_profissional = HttpContextAccessor.HttpContext.Session.GetInt32("id");
 }
 
 @section CSS {
@@ -27,10 +28,9 @@
             foreach (PortfolioModel p in Model.Profissionais)
             {
                 <div class="col-md-12 d-flex justify-content-end">
-                    @if (@username != null)
+                    @if (@id_profissional == p.ID_PROFISSIONAL.ID)
                     {
                         <p>
-
                             <a class="px-4 botao" data-bs-toggle="modal" data-bs-target="#edit" data-id="@p.ID_PROFISSIONAL.ID"><i class="bi bi-pencil-square icon-portfolio"></i> Editar perfil</a>
                             </p>
                         <br />
@@ -117,77 +117,80 @@
                 {
                     foreach (PortfolioModel p in Model.Profissionais)
                     {
-                        <form asp-controller="Administrador" asp-action="AceitarProfissional" method="post">
-                            <div class="form-group my-2">
-                                <label>ID do Profissional</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.ID_PROFISSIONAL.ID" value="@p.ID_PROFISSIONAL.ID" readonly />
-                            </div>
+                        @if (@id_profissional == p.ID_PROFISSIONAL.ID)
+                        {
+                            <form asp-controller="Administrador" asp-action="AceitarProfissional" method="post">
+                                <div class="form-group my-2">
+                                    <label>ID do Profissional</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.ID_PROFISSIONAL.ID" value="@p.ID_PROFISSIONAL.ID" readonly />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Imagem de perfil</label>
-                                <input type="file" class="form-control w-100" asp-for="Portfolio.IMAGEM" value="@p.IMAGEM_PROFILE" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Imagem de perfil</label>
+                                    <input type="file" class="form-control w-100" asp-for="Portfolio.IMAGEM" value="@p.IMAGEM_PROFILE" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Nome Profissional</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.NOME_PROFISSIONAL" value="@p.NOME_PROFISSIONAL" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Nome Profissional</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.NOME_PROFISSIONAL" value="@p.NOME_PROFISSIONAL" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>E-mail</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.EMAIL" value="@p.EMAIL" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>E-mail</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.EMAIL" value="@p.EMAIL" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Celular de contato</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.CELULAR" value="@p.CELULAR" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Celular de contato</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.CELULAR" value="@p.CELULAR" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Telefone de contato</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.TELEFONE" value="@p.TELEFONE" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Telefone de contato</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.TELEFONE" value="@p.TELEFONE" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Atende quais tipos de consultas</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.ATENDE_CONSULTA" value="@p.ATENDE_CONSULTA" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Atende quais tipos de consultas</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.ATENDE_CONSULTA" value="@p.ATENDE_CONSULTA" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Especialidade</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.ESPECIALIDADE" value="@p.ESPECIALIDADE" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Especialidade</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.ESPECIALIDADE" value="@p.ESPECIALIDADE" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Duração da Sessão</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.DURACAO_SESSAO" value="@p.DURACAO_SESSAO" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Duração da Sessão</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.DURACAO_SESSAO" value="@p.DURACAO_SESSAO" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Valor da consulta</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.VALOR_CONSULTA" value="@p.VALOR_CONSULTA" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Valor da consulta</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.VALOR_CONSULTA" value="@p.VALOR_CONSULTA" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Formas de pagamento</label>
-                                <input type="text" class="form-control w-100" asp-for="Portfolio.FORMAS_PAGAMENTO" value="@p.FORMAS_PAGAMENTO" />
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Formas de pagamento</label>
+                                    <input type="text" class="form-control w-100" asp-for="Portfolio.FORMAS_PAGAMENTO" value="@p.FORMAS_PAGAMENTO" />
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Sobre</label>
-                                <textarea rows="4" class="form-control w-100" name="@Html.NameFor(s => s.Portfolio.SOBRE)">@p.SOBRE</textarea>
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Sobre</label>
+                                    <textarea rows="4" class="form-control w-100" name="@Html.NameFor(s => s.Portfolio.SOBRE)">@p.SOBRE</textarea>
+                                </div>
 
-                            <div class="form-group my-2">
-                                <label>Formação</label>
-                                <textarea rows="4" class="form-control w-100" name="@Html.NameFor(f => f.Portfolio.FORMACAO)">@p.FORMACAO</textarea>
-                            </div>
+                                <div class="form-group my-2">
+                                    <label>Formação</label>
+                                    <textarea rows="4" class="form-control w-100" name="@Html.NameFor(f => f.Portfolio.FORMACAO)">@p.FORMACAO</textarea>
+                                </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn botao-outline px-4" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn botao px-4" asp-controller="Profissionais" asp-action="SalvarEdicao">Salvar</button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn botao-outline px-4" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn botao px-4" asp-controller="Profissionais" asp-action="SalvarEdicao">Salvar</button>
+                                </div>
+                            </form>
+                        }
                     }
                 }
                 

@@ -30,6 +30,17 @@ namespace SerMais.Controllers
             return assunto;
         }
 
+        public static string SubjectRetrieveAccount()
+        {
+            string assunto = $"SerMais - Recuperação de senha";
+            return assunto;
+        }
+        public static string SubjectRetrievePasswordAccount()
+        {
+            string assunto = $"SerMais - Sua senha acabou de ser alterada";
+            return assunto;
+        }
+
         public static string ContentAcceptedEmail(string nome)
         {
             string content =
@@ -66,12 +77,39 @@ namespace SerMais.Controllers
                 $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
             return content;
         }
+        public static string ContentRetrieveAccount(string nome, int id, string token)
+        {
+            string content =
+                $"<h1>Olá, <br> {nome} você solicitou a recuperação de senha de acesso ao sistema SerMais.</h1>" +
+                $"<p>Clique no link abaixo para cadastrar a nova senha:" +
+                $"<a href='https://localhost:7235/Login/RecuperarSenha/{id}/{token}' target='_blank'>https://localhost:7235/Login/RecuperarSenha/{id}/{token}</a></p>" +
+                $"<hr>" +
+                $"<p>Caso seu cliente de e-mail não permita clicar no link acima, copie e cole o endereço abaixo em seu navegador " +
+                $"<a href='https://localhost:7235/Login/RecuperarSenha/{id}/{token}' target='_blank'>https://localhost:7235/Login/RecuperarSenha/{id}/{token}</a></p>" +
+                $"<hr>" +
+                $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
+            return content;
+        }
+
+        public static string ContentRetrievePasswordAccount()
+        {
+            string content =
+                $"<h1>Alteração de senha.</h1>" +
+                $"<p>Sua senha acabou de ser alterada, se foi você, clique no link para fazer login: " +
+                $"<a href='https://localhost:7235/Login/index' target='_blank'>https://localhost:7235/Login/Index</a></p>" +
+                $"<hr>" +
+                $"<p>Caso não tenha sido você, entre em contato conosco, pelo e-mail: " +
+                $"sermaissuporte@gmail.com</p>" +
+                $"<hr>" +
+                $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
+            return content;
+        }
 
         public static MimeMessage ContentMessageEmail(string nome, string email, string assunto, string content)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("SerMais", "sermais.software@gmail.com"));
-            message.To.Add(new MailboxAddress(nome, email));
+            message.To.Add(new MailboxAddress("", email));
             message.Subject = assunto;
 
             var bodyBuilder = new BodyBuilder();
@@ -123,5 +161,25 @@ namespace SerMais.Controllers
 
             return "Email enviado com sucesso!";
         }
+
+        public static string SendRetrieveAccount(string email, string nome, int id_usuario, string token)
+        {
+            var subject = SubjectRetrieveAccount();
+            var content = ContentRetrieveAccount(nome, id_usuario, token);
+            var message = ContentMessageEmail(nome, email, subject, content);
+            Smtp(message);
+
+            return "Email enviado com sucesso!";
+        }
+        public static string SendRetrievePasswordAccount(string email)
+        {
+            var subject = SubjectRetrievePasswordAccount();
+            var content = ContentRetrievePasswordAccount();
+            var message = ContentMessageEmail("", email, subject, content);
+            Smtp(message);
+
+            return "Email enviado com sucesso!";
+        }
+
     }
 }

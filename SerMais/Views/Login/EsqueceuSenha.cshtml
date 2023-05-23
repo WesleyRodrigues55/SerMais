@@ -1,4 +1,5 @@
-﻿@*
+﻿@model UsuarioModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -16,14 +17,25 @@
                 <div class="text-center">
                     <h1> Esqueci minha Senha </h1>
                     <p> Coloque abaixo seu email ou usuário de login e receba um link de recuperação em seu email.</p>
-                    <div class="esqueci_minha_senha">
-                        
+                    <form class="esqueci_minha_senha" asp-controller="Login" asp-action="ActionEsqueciSenha" method="post" enctype="multipart/form-data">
+                            @if (TempData["MensagemEnviada"] != null)
+                            {
+                                <div class="alert alert-success" role="alert" id="mensagem">
+                                    @TempData["MensagemEnviada"]
+                                </div>
+                            }
+                            @if (TempData["EmailNaoEncontrado"] != null)
+                            {
+                                <div class="alert alert-danger" role="alert" id="mensagem">
+                                @TempData["EmailNaoEncontrado"]
+                                </div>
+                            }
                         <div class="mb-3 d-flex align-items-center">
-                            <input class="w-100 form-control input-login" type="text" placeholder="E-mail" />
+                            <input class="w-100 form-control input-login" asp-for=EMAIL type="text" placeholder="E-mail" />
                             <i class="bi bi-envelope-fill icon-login"></i>
                         </div>
 
-                        <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Recuperar Senha" /></a>
+                        <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Recuperar Senha" />
                         
                         <br />
                         <a asp-controller="Login" asp-action="Index" class="mb-3 w-100 btn btn-rounded-1 botao-outline d-flex align-items-center justify-content-center" style="padding: 6px 0">
@@ -31,7 +43,7 @@
                             Voltar
                         </a>
 
-                    </div>
+                    </form>
 
                 </div>
 
@@ -53,3 +65,23 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        if ($(".alert-success").length > 0) {
+            setTimeout(function () {
+                $(".alert-success").slideUp(500);
+            }, 8000);
+        }
+        else if ($(".alert-danger").length > 0) {
+            setTimeout(function () {
+                $(".alert-danger").slideUp(500);
+            }, 8000);
+        }
+        else if ($(".alert-warning").length > 0) {
+            setTimeout(function () {
+                $(".alert-warning").slideUp(500);
+            }, 8000);
+        }
+    });
+</script>

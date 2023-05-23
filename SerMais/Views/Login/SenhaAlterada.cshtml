@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string senha_alterada = ViewData["SenhaAlterada"] as string;
+}
+
+@*@Html.Partial("_Rodape")*@
+
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-12 col-lg-12 d-flex justify-content-center align-items-center">
+                <div class="text-center card p-5">
+
+                    <h2> @senha_alterada</h2>
+                    <p>Clique no botão abaixo para ir para a página de login e iniciar sessão.</p>
+                    <br />
+                    <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="Login" asp-action="Index">Ir para login</a>
+
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</div>
+
+@*@Html.Partial("_Rodape")*@
+
+<script>
+    $(document).ready(function () {
+        if ($(".alert-success").length > 0) {
+            setTimeout(function () {
+                $(".alert-success").slideUp(500);
+            }, 8000);
+        }
+        else if ($(".alert-danger").length > 0) {
+            setTimeout(function () {
+                $(".alert-danger").slideUp(500);
+            }, 8000);
+        }
+        else if ($(".alert-warning").length > 0) {
+            setTimeout(function () {
+                $(".alert-warning").slideUp(500);
+            }, 8000);
+        }
+    });
+</script>

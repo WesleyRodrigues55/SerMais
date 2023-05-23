@@ -4,6 +4,7 @@
 @{
     // crio a variavel username para que caso haja um usuário logado o método GetString pega esse username e salva
     var username = HttpContextAccessor.HttpContext.Session.GetString("username");
+    var id = HttpContextAccessor.HttpContext.Session.GetInt32("id");
 }
 @{
 }
@@ -43,13 +44,15 @@
                         </li>                        
 
                         @*Item 4*@
-                        <li><a asp-controller="" asp-action="">Contato</a></li>
+                        @*<li><a asp-controller="" asp-action="">Contato</a></li>*@
 
                         @*Item 5*@
                         <li class="menu-item-has-children">
                             <a asp-controller="Profissionais" asp-action="Index">Profissionais</a>
                         </li>
 
+                        @if (@username == null)
+                        {
                         @*Item 6*@
                         <li class="menu-item-has-children">
                             <a href="#">Login <i class="ion ion-ios-arrow-down"></i></a>
@@ -57,10 +60,11 @@
                                 <ul>
                                     <li><a asp-controller="Login" asp-action="Index">Iniciar Sessão</a></li>
                                     <li><a asp-controller="Login" asp-action="Registrar">Registre-se</a></li>
-                                    <li><a asp-controller="Login" asp-action="RecuperarSenha">Recuperar sua senha</a></li>
+                                    <li><a asp-controller="Login" asp-action="EsqueceuSenha">Esqueci minha senha</a></li>
                                 </ul>
                             </div>
                         </li>
+                        }
 
                         @*Item 7*@
                         @*aqui verifico se há um usuário com sessão iniciada, se sim, ele exibe o bloco abaixo, se não, ele ignora*@
@@ -70,8 +74,14 @@
                                 <a href="#">Perfil <i class="ion ion-ios-arrow-down"></i></a>
                                 <div class="menu-subs menu-subs-mobile menu-column-1">
                                     <ul>
-                                        <li><a asp-controller="Portfolio" asp-action="Index" class="d-flex align-items-center">
+                                        <li>
+                                            <a asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@id" asp-route-nome="@username" class="d-flex align-items-center">
                                                 <i class="bi bi-person-circle" style="font-size: 24px; margin-right: 8px"></i> Acessar Perfil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Login" asp-action="AlterarSenhaLogado">
+                                                <i class="bi bi-question-circle-fill" style="font-size: 24px; margin-right: 8px"></i> Alterar minha senha
                                             </a>
                                         </li>
                                         <li>
@@ -97,25 +107,3 @@
         </div>
     </div>
 </header>
-
-@*<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SerMais</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>*@

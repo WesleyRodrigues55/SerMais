@@ -36,7 +36,6 @@ namespace SerMais.Controllers
             var checked_usuario = _usuarioRepositorio.ValidaLogin(usuario);
             if (checked_usuario != null)
             {
-                // Armazena um valor na sessão do usuário
                 HttpContext.Session.SetString("username", checked_usuario.NOME);
                 HttpContext.Session.SetInt32("nivel", checked_usuario.NIVEL);
                 HttpContext.Session.SetInt32("id", checked_usuario.ID);
@@ -65,11 +64,6 @@ namespace SerMais.Controllers
             return View(viewModel);
         }
 
-        public IActionResult RecuperarSenha()
-        {
-            return View();
-        }
-
         public ProfissionalModel checkedFile(ProfissionalModel profissional)
         {
             if (profissional.FILE != null)
@@ -94,6 +88,22 @@ namespace SerMais.Controllers
             }
         }
 
+        public static string RandomToken()
+        {
+            byte[] tokenBytes = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(tokenBytes);
+            }
+
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hash = sha256.ComputeHash(tokenBytes);
+                string randomToken = BitConverter.ToString(hash).Replace("-", "").ToLower();
+                return randomToken;
+            }
+        }
+
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
@@ -103,6 +113,7 @@ namespace SerMais.Controllers
                 var profissionalInserido = _profissionalRepositorio.Inserir(profissional);
                 usuario.ID_PROFISSIONAL = profissionalInserido;
                 usuario.SENHA = criptografarSenha(usuario.SENHA);
+                usuario.TOKEN_RECUPERAR_SENHA = RandomToken();
                 _usuarioRepositorio.Inserir(usuario);
                 checkedFile(profissional);
                 EmailController.SendCreateAccount(profissional.EMAIL, profissional.NOME);
@@ -125,9 +136,76 @@ namespace SerMais.Controllers
                       + Path.GetExtension(fileName);
         }
 
-        public IActionResult EsqueceuSenha()
+        public IActionResult EsqueceuSenha(UsuarioModel usuario)
         {
+            return View(usuario);
+        }
+
+        public IActionResult ActionEsqueciSenha(UsuarioModel usuario)
+        {
+            var id_usuario = _usuarioRepositorio.ObterPorEmail(usuario.EMAIL);
+            if (id_usuario == -1)
+            {
+                TempData["EmailNaoEncontrado"] = $"E-mail não encontrado em nossa base de dados, verifique se o e-mail foi digitado corretamente.";
+                return Redirect("EsqueceuSenha");
+            }
+            var id_profissional = _usuarioRepositorio.ObterIdProfissionalPorIdUsuario(id_usuario);
+
+            var token_recuperar = _usuarioRepositorio.ObterTokenRecuperarSenhaPorId(id_usuario);
+            var nome = _usuarioRepositorio.ObterNomePorIdProfissional(id_profissional);
+            EmailController.SendRetrieveAccount(usuario.EMAIL, nome, id_usuario, token_recuperar);
+            TempData["MensagemEnviada"] = $"Enviamos um e-mail para {usuario.EMAIL}, verifiquei sua caixa de mensagens!";
+            return Redirect("EsqueceuSenha");
+        }
+
+        [HttpGet("login/recuperarSenha/{id?}/{hash?}")]
+        public IActionResult RecuperarSenha([FromRoute] int id, [FromRoute] string hash, UsuarioModel usuario)
+        {
+            if (id == 0 || string.IsNullOrEmpty(hash))
+                return RedirectToAction("Index", "Error");
+
+            var u = _usuarioRepositorio.ValidarIDEHashAlteracaoSenha(id, hash);
+            if (u == -1)
+                return RedirectToAction("Index", "Error");
+
+            ViewData["Id"] = id;
+            ViewData["Hash"] = hash;
+            return View(usuario);
+        }
+
+        public IActionResult SenhaAlterada()
+        {
+            ViewData["SenhaAlterada"] = $"Sua senha foi alterada, enviamos um e-mail para você";
             return View();
+        }
+
+        public IActionResult RecuperandoSenha(UsuarioModel usuario)
+        {
+            usuario.TOKEN_RECUPERAR_SENHA = RandomToken();
+            usuario.SENHA = criptografarSenha(usuario.SENHA);
+            usuario.SENHA_REPETE = criptografarSenha(usuario.SENHA);
+            var u = _usuarioRepositorio.UpdateSenha(usuario);
+            EmailController.SendRetrievePasswordAccount(u);
+            return Redirect("SenhaAlterada");
+        }
+
+
+        // LOGADO
+        public IActionResult AlterarSenhaLogado(UsuarioModel usuario)
+        {
+            return View(usuario);
+        }
+
+        public IActionResult AlterandoSenhaLogado(UsuarioModel usuario)
+        {
+            if (usuario.SENHA == null)
+                return RedirectToAction("Index", "Error");
+            usuario.SENHA = criptografarSenha(usuario.SENHA);
+            usuario.SENHA_REPETE = criptografarSenha(usuario.SENHA);
+            var u = _usuarioRepositorio.UpdateSenhaLogado(usuario);
+            EmailController.SendRetrievePasswordAccount(u);
+            HttpContext.Session.Clear();
+            return Redirect("SenhaAlterada");
         }
 
     }
