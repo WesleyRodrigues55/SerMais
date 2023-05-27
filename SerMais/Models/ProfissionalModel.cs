@@ -54,7 +54,7 @@ namespace SerMais.Models
 
         [StringLength(100)]
         [Required(AllowEmptyStrings = false)]
-        public string COMPLEMENTO { get; set; }
+        public string? COMPLEMENTO { get; set; }
 
         public string OBSERVACAO { get; set; }
 

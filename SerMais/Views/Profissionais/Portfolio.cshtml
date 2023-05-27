@@ -11,9 +11,15 @@
     <link rel="stylesheet" href="~/css/portfolio.css" />
 }
 
+@section JS {
+    <script src="~/js/calendar.js"></script>
+}
+
 @Html.Partial("_Navegacao")
 
-<main class="container my-5">
+<main class="container-flex my-5 mx-4">
+
+    
 
     <div class="row border p-3">
         @if (TempData["MensagemSucesso"] != null)
@@ -31,8 +37,11 @@
                     @if (@id_profissional == p.ID_PROFISSIONAL.ID)
                     {
                         <p>
+                            <a class="px-4 botao" style="margin-right: 8px" asp-controller="Profissionais" asp-action="CadastroAgenda"><i class="bi bi-pencil-square icon-portfolio"></i> Cadastrar agenda</a>
+                        </p>
+                        <p>
                             <a class="px-4 botao" data-bs-toggle="modal" data-bs-target="#edit" data-id="@p.ID_PROFISSIONAL.ID"><i class="bi bi-pencil-square icon-portfolio"></i> Editar perfil</a>
-                            </p>
+                        </p>
                         <br />
 
                         <br />
@@ -59,7 +68,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-9 col-lg-6">
+                <div class="col-md-9 col-lg-3">
                     <div class="box-about-profissional">
                         <h1 style="margin-bottom: 0">@p.ID_PROFISSIONAL.NOME_COMPLETO</h1>
                         <p>
@@ -87,11 +96,25 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 col-lg-4">
-                    <div class="h-100 d-flex align-items-center justify-content-center">
-                        <p>Aqui seria o calendário</p>
+                <div class="col-md-12 col-lg-7">
+                    <div class="">
+                        <div id='calendar'></div>
+                        <br>
+                        <p>
+                            @*CONTINUAR PROCESSO AGENDAMENTO*@
+                            <a asp-controller="" asp-action="" class="mb-3 w-100 btn btn-rounded-1 botao">Agendar consulta</a>
+                        </p>
                     </div>
                 </div>
+            }
+        } else
+        {
+            if (id_profissional != null)
+            {
+                <h1>Seu perfil ainda não foi criado, clique no botão abaixo para inserir seus dados.</h1>
+                <p>
+                    <a class="px-4 botao" data-bs-toggle="modal" data-bs-target="#edit" data-id="@id_profissional"><i class="bi bi-pencil-square icon-portfolio"></i> Criar perfil</a>
+                </p>
             }
         }
         @*Fim informações do banco*@
@@ -119,7 +142,7 @@
                     {
                         @if (@id_profissional == p.ID_PROFISSIONAL.ID)
                         {
-                            <form asp-controller="Administrador" asp-action="AceitarProfissional" method="post">
+                            <form asp-controller="Profissionais" asp-action="SalvarEdicao" method="post" enctype="multipart/form-data">
                                 <div class="form-group my-2">
                                     <label>ID do Profissional</label>
                                     <input type="text" class="form-control w-100" asp-for="Portfolio.ID_PROFISSIONAL.ID" value="@p.ID_PROFISSIONAL.ID" readonly />
@@ -167,7 +190,7 @@
 
                                 <div class="form-group my-2">
                                     <label>Valor da consulta</label>
-                                    <input type="text" class="form-control w-100" asp-for="Portfolio.VALOR_CONSULTA" value="@p.VALOR_CONSULTA" />
+                                    <input type="number" class="form-control w-100" asp-for="Portfolio.VALOR_CONSULTA" value="@p.VALOR_CONSULTA" />
                                 </div>
 
                                 <div class="form-group my-2">
@@ -187,13 +210,86 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn botao-outline px-4" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn botao px-4" asp-controller="Profissionais" asp-action="SalvarEdicao">Salvar</button>
+                                    <button type="submit" class="btn botao px-4">Salvar</button>
                                 </div>
                             </form>
                         }
                     }
+                } else
+                {
+                    <form asp-controller="Profissionais" asp-action="CriarEdicao" method="post" enctype="multipart/form-data">
+                        <div class="form-group my-2">
+                            <label>ID do Profissional</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.ID_PROFISSIONAL.ID" value="@id_profissional" readonly />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Imagem de perfil</label>
+                            <input type="file" class="form-control w-100" asp-for="Portfolio.IMAGEM" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Nome Profissional</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.NOME_PROFISSIONAL" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>E-mail</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.EMAIL" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Celular de contato</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.CELULAR" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Telefone de contato</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.TELEFONE" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Atende quais tipos de consultas</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.ATENDE_CONSULTA" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Especialidade</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.ESPECIALIDADE" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Duração da Sessão</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.DURACAO_SESSAO" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Valor da consulta</label>
+                            <input type="number" class="form-control w-100" asp-for="Portfolio.VALOR_CONSULTA" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Formas de pagamento</label>
+                            <input type="text" class="form-control w-100" asp-for="Portfolio.FORMAS_PAGAMENTO" />
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Sobre</label>
+                            <textarea rows="4" class="form-control w-100" name="@Html.NameFor(s => s.Portfolio.SOBRE)"></textarea>
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label>Formação</label>
+                            <textarea rows="4" class="form-control w-100" name="@Html.NameFor(f => f.Portfolio.FORMACAO)"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn botao-outline px-4" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn botao px-4" >Salvar</button>
+                        </div>
+                    </form>
                 }
-                
+
             </div>
         </div>
     </div>

@@ -28,12 +28,12 @@
                         </div>
                         <p id="valida-igualdade" style="color: red; display: none;">Campos não estão iguais</p>
                         <div class="mb-3 d-flex align-items-center">
-                            <input class="w-100 form-control input-login" asp-for="SENHA" id="password" type="password" placeholder="Digite sua nova senha"  required/>
+                            <input class="w-100 form-control input-login" asp-for="SENHA" id="password" type="password" placeholder="Digite sua nova senha" min-length="8" maxlength="100" required />
                             <i class="bi bi-eye-slash-fill icon-login icon-password"></i>
                         </div>
 
                         <div class="mb-3 d-flex align-items-center">
-                            <input class="w-100 form-control input-login" asp-for="SENHA_REPETE" id="password2" type="password" placeholder="Repetir senha" required />
+                            <input class="w-100 form-control input-login" asp-for="SENHA_REPETE" id="password2" type="password" placeholder="Repetir senha" min-length="8" maxlength="100" required />
                             <i class="bi bi-eye-slash-fill icon-login icon-password2"></i>
                         </div>
 

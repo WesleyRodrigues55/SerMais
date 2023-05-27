@@ -370,6 +370,10 @@ img, video {
         order: 3
     }
 
+    .brand>img {
+        width: 140px !important;
+    }
+
     .menu-subs-mobile {
         background: #36AB82 !important
     }

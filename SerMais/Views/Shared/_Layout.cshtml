@@ -25,9 +25,15 @@
 
     @*Jquery and Scripts*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+
+    @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
 
     @*É utilizado para ter ou uma um css específico dependendo da View que estiver aberta*@
     @RenderSection("CSS", required: false)
+    @RenderSection("JS", required: false)
 </head>
 <body>
 

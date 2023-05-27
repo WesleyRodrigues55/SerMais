@@ -66,23 +66,29 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
+                    <label>Nome</label>
                     <input type="text" asp-for="Profissional.NOME" class="form-control input-form input-login" placeholder="Nome..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>Sobrenome</label>
                     <input type="text" asp-for="Profissional.SOBRENOME" class="form-control input-form input-login" placeholder="Sobrenome..." required />
                 </div>
 
                 <div class="col-md-6 my-2">
+                    <label>E-mail</label>
                     <input type="email" asp-for="Profissional.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>Data de nascimento</label>
                     <input type="date" asp-for="Profissional.DT_NASCIMENTO" class="form-control input-form input-login" required />
                 </div>
 
                 <div class="col-md-6 my-2">
+                    <label>Celular</label>
                     <input type="text" asp-for="Profissional.TELEFONE" class="form-control input-form input-login" placeholder="Celular..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>CPF</label>
                     <input type="text" asp-for="Profissional.CPF" class="form-control input-form input-login" placeholder="CPF..." required />
                 </div>
             </div>
@@ -93,26 +99,33 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
+                    <label>CEP</label>
                     <input type="text" asp-for="Profissional.CEP" id="cep" class="form-control input-form input-login" placeholder="CEP..." maxlength="10" required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>Rua</label>
                     <input type="text" asp-for="Profissional.RUA" id="rua" class="form-control input-form input-login" placeholder="Rua..." required />
                 </div>
 
                 <div class="col-md-6 my-2">
+                    <label>Bairro</label>
                     <input type="text" asp-for="Profissional.BAIRRO" id="bairro" class="form-control input-form input-login" placeholder="Bairro..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>Cidade</label>
                     <input type="text" asp-for="Profissional.CIDADE" id="cidade" class="form-control input-form input-login" placeholder="Cidade..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>Estado</label>
                     <input type="text" asp-for="Profissional.ESTADO" id="uf" class="form-control input-form input-login" placeholder="Estado..." required />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.NUMERO" class="form-control input-form input-login" placeholder="Número..." required/>
+                    <label>Número</label>
+                    <input type="text" asp-for="Profissional.NUMERO" class="form-control input-form input-login" placeholder="Número..." required />
                 </div>
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Profissional.COMPLEMENTO" class="form-control input-form input-login" value=" " placeholder="Complemento..."/>
+                    <label>Complemento</label>
+                    <input type="text" asp-for="Profissional.COMPLEMENTO" class="form-control input-form input-login" placeholder="Complemento..." />
                 </div>
             </div>
             @*end row*@
@@ -121,19 +134,23 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
+                    <label>Usuário (e-mail)</label>
                     <input type="email" asp-for="Usuario.EMAIL" class="form-control input-form input-login" placeholder="Usuário (Digite seu e-mail)" required />
                 </div>
                 <div class="col-md-6 my-2">
                 </div>
 
                 <div class="col-md-6 my-2">
-                    <input type="text" asp-for="Usuario.SENHA" class="form-control input-form input-login" placeholder="Senha..." required />
+                    <label>Senha</label>
+                    <input type="password" asp-for="Usuario.SENHA" class="form-control input-form input-login" placeholder="Senha..." min-length="8" maxlength="100" required />
                 </div>
 
                 <div class="col-md-6 my-2">
+                    <label>CRP</label>
                     <input type="text" asp-for="Profissional.CRP" class="form-control input-form input-login" placeholder="CRP..." required />
                 </div>
                 <div class="col-md-6 my-2">
+                    <label>Observação</label>
                     <textarea rows="5" asp-for="Profissional.OBSERVACAO" class="form-control input-form input-login" placeholder="Observação..." required></textarea>
                 </div>
             </div>
@@ -143,6 +160,7 @@
             @*start row*@
             <div class="row">
                 <div class="col-md-6 my-2">
+                    <label>Anexe seu arquivo</label>
                     <input type="file" asp-for="Profissional.FILE" class="form-control input-form input-login" required />
                 </div>
             </div>

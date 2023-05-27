@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SerMais.Data;
 
@@ -11,9 +12,11 @@ using SerMais.Data;
 namespace SerMais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20230526131010_AgendaProfissional")]
+    partial class AgendaProfissional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,20 +33,14 @@ namespace SerMais.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("ATIVO")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DIA")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("DIA")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("HORA_END")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("HORA_END")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HORA_START")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("HORA_START")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ID_PROFISSIONALID")
                         .HasColumnType("int");

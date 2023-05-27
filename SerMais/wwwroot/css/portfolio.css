@@ -2,3 +2,26 @@
     font-size: 20px;
     margin-right: 4px;
 }
+
+.img-profissional {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 576px) {
+    .img-profissional {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .img-profissional {
+        width: 150px;
+        height: 150px;
+    }
+}

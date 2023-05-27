@@ -81,10 +81,10 @@ namespace SerMais.Controllers
         {
             string content =
                 $"<h1>Olá, <br> {nome} você solicitou a recuperação de senha de acesso ao sistema SerMais.</h1>" +
-                $"<p>Clique no link abaixo para cadastrar a nova senha:" +
-                $"<a href='https://localhost:7235/Login/RecuperarSenha/{id}/{token}' target='_blank'>https://localhost:7235/Login/RecuperarSenha/{id}/{token}</a></p>" +
+                $"<p>Clique no link para cadastrar a nova senha:" +
+                $"<a href='https://localhost:7235/Login/RecuperarSenha/{id}/{token}' target='_blank'>Clique aqui</a></p>" +
                 $"<hr>" +
-                $"<p>Caso seu cliente de e-mail não permita clicar no link acima, copie e cole o endereço abaixo em seu navegador " +
+                $"<p>Caso seu cliente de e-mail não permita clicar no link acima, copie e cole o endereço em seu navegador " +
                 $"<a href='https://localhost:7235/Login/RecuperarSenha/{id}/{token}' target='_blank'>https://localhost:7235/Login/RecuperarSenha/{id}/{token}</a></p>" +
                 $"<hr>" +
                 $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
@@ -96,7 +96,7 @@ namespace SerMais.Controllers
             string content =
                 $"<h1>Alteração de senha.</h1>" +
                 $"<p>Sua senha acabou de ser alterada, se foi você, clique no link para fazer login: " +
-                $"<a href='https://localhost:7235/Login/index' target='_blank'>https://localhost:7235/Login/Index</a></p>" +
+                $"<a href='https://localhost:7235/Login/index' target='_blank'>Clique aqui</a></p>" +
                 $"<hr>" +
                 $"<p>Caso não tenha sido você, entre em contato conosco, pelo e-mail: " +
                 $"sermaissuporte@gmail.com</p>" +

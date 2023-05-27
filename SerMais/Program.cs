@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SerMais.Data;
 using SerMais.Repositorio;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace SerMais
 {
@@ -22,6 +23,16 @@ namespace SerMais
             builder.Services.AddScoped<IProfissionalRepositorio, ProfissionalRepositorio>();
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             builder.Services.AddScoped<IPortfolioRepositorio, PortfolioRepositorio>();
+            builder.Services.AddScoped<IAgendaProfissionalRepositorio, AgendaProfissionalRepositorio>();
+
+            // Cors API
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin();
+                });
+            });
 
             // Configurando a sessão
             builder.Services.AddSession(options =>
@@ -32,6 +43,8 @@ namespace SerMais
             });
 
             var app = builder.Build();
+
+            app.UseCors();
 
             // Usando a sessão
             app.UseSession();
@@ -62,6 +75,10 @@ namespace SerMais
             app.MapControllerRoute(
                name: "default",
                pattern: "{controller=Login}/{action=RecuperarSenha}/{id?}/{hash?}");
+
+            app.MapControllerRoute(
+                name: "API Default",
+                pattern: "api/{controller=Agendamento}/{id?}");
 
             app.Run();
         }

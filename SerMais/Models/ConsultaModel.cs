@@ -6,10 +6,10 @@ namespace SerMais.Models
     {
         [Key]
         public int ID { get; set; }
-
         public string QUEIXA { get; set; }
 
-        public DateTime DATA_HORA { get; set; }
+        public DateTime DATA_START { get; set; }
+        public DateTime DATA_END { get; set; }
 
         [StringLength(50)]
         public string STATUS { get; set; }
@@ -18,8 +18,6 @@ namespace SerMais.Models
 
         [StringLength(50)]
         public string FORMA_DE_PAGAMENTO { get; set; }
-
-        public TipoConsultaModel ID_TIPO_CONSULTA { get; set; }
 
         public AgendamentoModel ID_AGENDAMENTO { get; set; }
     }

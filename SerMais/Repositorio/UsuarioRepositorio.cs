@@ -111,6 +111,7 @@ namespace SerMais.Repositorio
                     ID = p.Profissional.ID,
                     NOME = slug(p.Profissional.NOME),
                     NIVEL = p.Profissional.NIVEL,
+                    EMAIL = p.Usuario.EMAIL,
                 })
                 .FirstOrDefault();
         }

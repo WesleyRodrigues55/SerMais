@@ -39,6 +39,7 @@ namespace SerMais.Controllers
                 HttpContext.Session.SetString("username", checked_usuario.NOME);
                 HttpContext.Session.SetInt32("nivel", checked_usuario.NIVEL);
                 HttpContext.Session.SetInt32("id", checked_usuario.ID);
+                HttpContext.Session.SetString("email", checked_usuario.EMAIL);
 
                 if (checked_usuario.NIVEL == 1)
                 {
@@ -47,7 +48,7 @@ namespace SerMais.Controllers
                 } else if (checked_usuario.NIVEL == 2)
                 {
                     return RedirectToAction("Index", "Administrador");
-                }
+                } //NÍVEL 3?
             }
             TempData["MensagemErroCredenciais"] = $"Suas credenciais estão incorretas, ou ainda você não foi aprovado em nossa plataforma.";
             return RedirectToAction("Index", "Login");
@@ -107,6 +108,10 @@ namespace SerMais.Controllers
         [HttpPost]
         public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
         {
+            if (profissional.COMPLEMENTO == "" || profissional.COMPLEMENTO == null)
+            {
+                profissional.COMPLEMENTO = "nulo";
+            }
             profissional.NOME_COMPLETO = profissional.NOME + " " + profissional.SOBRENOME;
             if (_profissionalRepositorio.BuscaCrp(profissional.CRP) == null)
             {
@@ -198,12 +203,13 @@ namespace SerMais.Controllers
 
         public IActionResult AlterandoSenhaLogado(UsuarioModel usuario)
         {
+            string email = HttpContext.Session.GetString("email");
             if (usuario.SENHA == null)
                 return RedirectToAction("Index", "Error");
             usuario.SENHA = criptografarSenha(usuario.SENHA);
             usuario.SENHA_REPETE = criptografarSenha(usuario.SENHA);
             var u = _usuarioRepositorio.UpdateSenhaLogado(usuario);
-            EmailController.SendRetrievePasswordAccount(u);
+            EmailController.SendRetrievePasswordAccount(email);
             HttpContext.Session.Clear();
             return Redirect("SenhaAlterada");
         }

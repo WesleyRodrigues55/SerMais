@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SerMais.Data;
 
@@ -11,9 +12,11 @@ using SerMais.Data;
 namespace SerMais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    partial class BancoContextModelSnapshot : ModelSnapshot
+    [Migration("20230523221433_NuloComplemento")]
+    partial class NuloComplemento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,39 +24,6 @@ namespace SerMais.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("SerMais.Models.AgendaProfissionalModel", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("ATIVO")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DIA")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HORA_END")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HORA_START")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ID_PROFISSIONALID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ID_PROFISSIONALID");
-
-                    b.ToTable("AGENDA_PROFISSIONAL");
-                });
 
             modelBuilder.Entity("SerMais.Models.AgendamentoModel", b =>
                 {
@@ -75,7 +45,7 @@ namespace SerMais.Migrations
 
                     b.HasIndex("ID_PROFISSIONALID");
 
-                    b.ToTable("AGENDAMENTOS");
+                    b.ToTable("AGENDAMENTO");
                 });
 
             modelBuilder.Entity("SerMais.Models.ClienteModel", b =>
@@ -125,10 +95,7 @@ namespace SerMais.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<DateTime>("DATA_END")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DATA_START")
+                    b.Property<DateTime>("DATA_HORA")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FORMA_DE_PAGAMENTO")
@@ -137,6 +104,9 @@ namespace SerMais.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ID_AGENDAMENTOID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ID_TIPO_CONSULTAID")
                         .HasColumnType("int");
 
                     b.Property<string>("LINK_REUNIAO")
@@ -156,7 +126,9 @@ namespace SerMais.Migrations
 
                     b.HasIndex("ID_AGENDAMENTOID");
 
-                    b.ToTable("CONSULTAS");
+                    b.HasIndex("ID_TIPO_CONSULTAID");
+
+                    b.ToTable("CONSULTA");
                 });
 
             modelBuilder.Entity("SerMais.Models.PortfolioModel", b =>
@@ -314,6 +286,24 @@ namespace SerMais.Migrations
                     b.ToTable("PROFISSIONAL");
                 });
 
+            modelBuilder.Entity("SerMais.Models.TipoConsultaModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("NOME_TIPO_CONSULTA")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TIPO_CONSULTA_MODEL");
+                });
+
             modelBuilder.Entity("SerMais.Models.UsuarioModel", b =>
                 {
                     b.Property<int>("ID")
@@ -353,17 +343,6 @@ namespace SerMais.Migrations
                     b.ToTable("USUARIO");
                 });
 
-            modelBuilder.Entity("SerMais.Models.AgendaProfissionalModel", b =>
-                {
-                    b.HasOne("SerMais.Models.ProfissionalModel", "ID_PROFISSIONAL")
-                        .WithMany()
-                        .HasForeignKey("ID_PROFISSIONALID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ID_PROFISSIONAL");
-                });
-
             modelBuilder.Entity("SerMais.Models.AgendamentoModel", b =>
                 {
                     b.HasOne("SerMais.Models.ClienteModel", "ID_CLIENTE")
@@ -391,7 +370,15 @@ namespace SerMais.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SerMais.Models.TipoConsultaModel", "ID_TIPO_CONSULTA")
+                        .WithMany()
+                        .HasForeignKey("ID_TIPO_CONSULTAID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ID_AGENDAMENTO");
+
+                    b.Navigation("ID_TIPO_CONSULTA");
                 });
 
             modelBuilder.Entity("SerMais.Models.PortfolioModel", b =>
