@@ -10,6 +10,7 @@
 @Html.Partial("_Navegacao")
 
 <main class="container my-5">
+        <h1>Cadastre seus dias de consultas disponíveis.</h1>
      @if (TempData["MensagemSucesso"] != null)
     {
         <div class="alert alert-success" role="alert" id="mensagem">
@@ -23,22 +24,39 @@
             <p>Caso tenha esquecido seus dados de login, <a asp-controller="Login" asp-action="EsqueceuSenha">clique aqui</a>.</p>
         </div>
     }
-    <form asp-controller="Profissionais" asp-action="CadastrandoHorario" method="post">
+
+    <form asp-controller="Profissionais" asp-action="CadastrandoHorario" method="post" class="card card-body">
         <div class="row">
             <div class="col-md-12">
                 <input class="form-control" type="hidden" id="id_profissional" name="id_profissional" value="@id" readonly>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <label>Data:</label>
                 <input class="form-control" type="string" asp-for="Agendamento.DIA" id="data" name="DIA" required>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <label>Hora de Início:</label>
                 <input class="form-control" type="string" id="horaInicio" name="HORA_START" asp-for="Agendamento.HORA_START" required>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <label>Hora de Fim:</label>
                 <input class="form-control" type="string" id="horaFim" name="HORA_END" asp-for="Agendamento.HORA_END" required>
+            </div>
+            <div class="col-md-12 mt-3 d-flex">
+                <input class="form-check-input" type="radio" name="dias-semana" value="segunda-sexta" asp-for="Agendamento.REPETE">
+                <label class="mx-2">Repetir esse horário de Segunda a Sexta:</label>
+            </div>
+            <div class="col-md-12 mt-3 d-flex">
+                <input class="form-check-input" type="radio" name="dias-semana" value="segunda-sabado" asp-for="Agendamento.REPETE">
+                <label class="mx-2">Repetir esse horário de Segunda a Sábado:</label>
+                            </div>
+            <div class="col-md-12 mt-3 d-flex">
+                <input class="form-check-input" type="radio" name="dias-semana" value="segunda-domingo" asp-for="Agendamento.REPETE">
+                <label class="mx-2">Repetir esse horário de Segunda a Domingo:</label>
+            </div>
+            <div class="col-md-12 mt-3 d-flex">
+                <input class="form-check-input" type="radio" name="dias-semana" value="nao-repete" asp-for="Agendamento.REPETE" checked>
+                <label class="mx-2">Não repetir:</label>
             </div>
         </div>
         <div class="mt-4">

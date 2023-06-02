@@ -15,6 +15,8 @@
         <div class="row h-100">
             <div class="col-md-12 col-lg-7 d-flex justify-content-center align-items-center box-1-login">
                 <div class="text-center">
+                    <a asp-controller="Home" asp-action="Index" class="w-100"><img src="~/img/logo.png" style="margin: 0 auto" /></a>
+                    <br /><br />
                     <h1> Esqueci minha Senha </h1>
                     <p> Coloque abaixo seu email ou usuário de login e receba um link de recuperação em seu email.</p>
                     <form class="esqueci_minha_senha" asp-controller="Login" asp-action="ActionEsqueciSenha" method="post" enctype="multipart/form-data">
@@ -50,7 +52,7 @@
             </div>
             <div class="col-md-12 col-lg-5 box-2-login">
                 <div class="logo" style="text-align:center">
-                    <img src="~/img/logoSerMais.png" style="text-align:center" />
+                    <a asp-controller="Home" asp-action="Index" class="w-100"><img src="~/img/logoSerMais.png" style="text-align:center" /></a>
                     <br />
                     <br />
                     <h2 class="h2-white my-4">Esqueceu sua <br /> senha de Cadastro?</h2>

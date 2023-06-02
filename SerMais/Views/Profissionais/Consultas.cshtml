@@ -1,0 +1,70 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    var id_profissional = HttpContextAccessor.HttpContext.Session.GetInt32("id");
+    var id = ViewData["id"] as int?;
+}
+
+@section JS {
+    <script src="~/js/calendar-consultas.js"></script>
+}
+
+@Html.Partial("_Navegacao")
+
+<main class="container my-5">
+    <h1>Consultas pendentes.</h1>
+
+    <div id='calendar'></div>
+
+</main>
+@*<div class="modal fade open-modal" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Alerta!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="eventTitle"></div>
+                <div id="eventStart"></div>
+                <div id="eventEnd"></div>
+                <div id="eventDescription"></div>
+                <div>
+                    <ul id="consultaList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+
+@Html.Partial("_Rodape")
+
+@*<script>
+    $(document).ready(function () {
+      $('#eventModal').on('show.bs.modal', function (event) {
+        var agendamentoId = $(this).data('agendamento-id');
+        $('#valor-id').text(agendamentoId);
+
+
+            $.ajax({
+                url: 'https://localhost:7235/api/agendamento/GetConsultasPorIdParaOProfissional/' + agendamentoId,
+                method: 'GET',
+                success: function (data) {
+                    var consultaList = document.getElementById('consultaList');
+                    consultaList.innerHTML = '';
+                    data.forEach(function (item) {
+                        var li = document.createElement('li');
+                        li.textContent += "status: " + item.status;
+                        li.textContent += "queixa: " + item.queixa;
+                        consultaList.appendChild(li);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+      });
+    });
+</script>*@

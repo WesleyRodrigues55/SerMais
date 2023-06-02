@@ -29,35 +29,26 @@
         {
             foreach (PortfolioModel p in Model)
             {
-                <div class="col-md-12 my-3">
-                    <div class="row box-profissional">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="p-2">
-                                <div class="row">
-                                    <div class="col-12 col-md-6 box-img-profissional">
-                                        <img class="img-profissional" src="~/img/profiles/@p.IMAGEM_PROFILE" alt="@p.IMAGEM_PROFILE" />
-                                    </div>
-                                    <div class="col-12 col-md-6 p-2 box-about-profissional">
-                                        <p><b>@p.ID_PROFISSIONAL.NOME_COMPLETO</b></p>
-                                        <p><span>Psicólogo</span> | <span>@p.ID_PROFISSIONAL.CIDADE</span></p>
-                                        <p><b>CRP: </b>@p.ID_PROFISSIONAL.CRP</p>
-                                        <p>@p.ESPECIALIDADE</p>
-                                    </div>
-                                </div>
-                                <div class="py-2 box-about-profissional">
-                                    <h2>R$ @p.VALOR_CONSULTA</h2>
-                                    <p><b>Duração da sessão: </b>@p.DURACAO_SESSAO</p>
-                                    <p><i class="bi bi-telephone-fill"></i> @p.TELEFONE</p>
-                                    <p><i class="bi bi-whatsapp"></i> @p.CELULAR</p>
-                                </div>
-                                <div class="">
-                                    <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@p.ID_PROFISSIONAL.ID" asp-route-nome="@p.ID_PROFISSIONAL.NOME.ToLower()">Ver perfil completo</a>
-                                </div>
+                <div class="col-md-6 col-lg-4 my-3">
+                    <div class="row box-profissional m-1">
+                        <div class="py-2 box-about-profissional">
+                            <div class="col-12 col-md-6 box-img-profissional w-100">
+                                <img class="img-profissional" class="img-profissional-profile" style="magin: 0 auto" src="~/img/profiles/@p.IMAGEM_PROFILE" alt="@p.IMAGEM_PROFILE" />
                             </div>
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="h-100 d-flex align-items-center justify-content-center">
-                                <p>Aqui seria o calendário</p>
+                            <div class="text-center">
+                                <div class="col-12 col-md-6 p-2 box-about-profissional w-100">
+                                    <p><b>@p.ID_PROFISSIONAL.NOME_COMPLETO</b></p>
+                                    <p><span>Psicólogo</span> | <span>@p.ID_PROFISSIONAL.CIDADE</span></p>
+                                    <p><b>CRP: </b>@p.ID_PROFISSIONAL.CRP</p>
+                                    <p>@p.ESPECIALIDADE</p>
+                                </div>
+                                <h2>R$ @p.VALOR_CONSULTA</h2>
+                                <p><b>Duração da sessão: </b>@p.DURACAO_SESSAO</p>
+                                <p><i class="bi bi-telephone-fill"></i> @p.TELEFONE</p>
+                                <p><i class="bi bi-whatsapp"></i> @p.CELULAR</p>
+                            </div>
+                            <div class="">
+                                <a class="mb-3 w-100 btn btn-rounded-1 botao" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@p.ID_PROFISSIONAL.ID" asp-route-nome="@p.ID_PROFISSIONAL.NOME.ToLower()">Ver perfil completo</a>
                             </div>
                         </div>
                     </div>

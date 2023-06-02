@@ -137,18 +137,21 @@
                     <label>Usuário (e-mail)</label>
                     <input type="email" asp-for="Usuario.EMAIL" class="form-control input-form input-login" placeholder="Usuário (Digite seu e-mail)" required />
                 </div>
-                <div class="col-md-6 my-2">
-                </div>
-
-                <div class="col-md-6 my-2">
-                    <label>Senha</label>
-                    <input type="password" asp-for="Usuario.SENHA" class="form-control input-form input-login" placeholder="Senha..." min-length="8" maxlength="100" required />
-                </div>
 
                 <div class="col-md-6 my-2">
                     <label>CRP</label>
                     <input type="text" asp-for="Profissional.CRP" class="form-control input-form input-login" placeholder="CRP..." required />
                 </div>
+
+                <div class="col-md-6 my-2">
+                    <label>Senha</label>
+                    <i style="font-size: 12px">
+                        <br /><b>Sua senha deve conter: </b>Mais de 8 dígitos, pelo menos uma letra Maíuscula, pelo menos um númeroe pelo menos um caractere especial
+                    </i>
+                    <p id="senha-erro"></p>
+                    <input type="password" asp-for="Usuario.SENHA" class="form-control input-form input-login" id="senha" placeholder="Senha..." min-length="8" maxlength="100" required />
+                </div>
+
                 <div class="col-md-6 my-2">
                     <label>Observação</label>
                     <textarea rows="5" asp-for="Profissional.OBSERVACAO" class="form-control input-form input-login" placeholder="Observação..." required></textarea>
@@ -167,7 +170,7 @@
             @*end row*@
 
             <div class="mt-4">
-                <input class="mb-3 w-100 btn btn-rounded-1 botao" type="submit" value="Criar conta" />
+                <input class="mb-3 w-100 btn btn-rounded-1 botao" id="botao" type="submit" value="Criar conta" />
             </div>
 
         </form>

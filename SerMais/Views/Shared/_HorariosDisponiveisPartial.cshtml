@@ -1,0 +1,20 @@
+﻿@model List<AgendaProfissionalModel>
+
+
+
+@if (Model != null && Model.Any())
+{
+    <label>Horários disponíveis:</label>
+    <select id="horarios" class="form-control" name="id_agenda_profissional" id="id_agenda_profissional">
+        <option default>Escolha um horário</option>
+        @foreach (var item in Model)
+        {
+            <option value="@item.ID">@item.HORA_START até @item.HORA_END</option>
+        }
+    </select>
+} else
+{   
+    <br />
+    <p id="nao-disponivel">Nenhum horário disponível para hoje.</p>
+}
+

@@ -5,7 +5,7 @@
 
 @Html.Partial("_Navegacao")
 
-<main>
+<main class="mb-5">
     <div class="banner">
         <div class="d-flex justify-content-center align-items-center flex-column h-100">
             <div class="box-title-banner">
@@ -66,7 +66,7 @@
                                 <span>CRP: @p.ID_PROFISSIONAL.CRP</span>
                             </b>
                         </p>
-                        <p>@p.SOBRE</p>
+                        <p class="text-limit">@p.SOBRE</p><br>
                         <p><a class="mb-3 w-100 btn btn-rounded-1 botao" style="width: 100% !important" asp-controller="Profissionais" asp-action="Portfolio" asp-route-id="@p.ID_PROFISSIONAL.ID" asp-route-nome="@p.NOME_PROFISSIONAL">Saiba mais!</a></p>
                     </div>
                 </div>

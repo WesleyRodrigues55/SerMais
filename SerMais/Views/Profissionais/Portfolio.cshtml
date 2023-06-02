@@ -33,14 +33,17 @@
         {
             foreach (PortfolioModel p in Model.Profissionais)
             {
-                <div class="col-md-12 d-flex justify-content-end">
+                <div class="col-md-12 d-flex flex-wrap justify-content-center">
                     @if (@id_profissional == p.ID_PROFISSIONAL.ID)
                     {
                         <p>
-                            <a class="px-4 botao" style="margin-right: 8px" asp-controller="Profissionais" asp-action="CadastroAgenda"><i class="bi bi-pencil-square icon-portfolio"></i> Cadastrar agenda</a>
+                            <a class="px-4 botao d-block" style="margin-right: 8px" asp-controller="Profissionais" asp-action="Consultas" asp-route-id="@p.ID_PROFISSIONAL.ID"><i class="bi bi-pencil-square icon-portfolio"></i> Consultas</a>
                         </p>
                         <p>
-                            <a class="px-4 botao" data-bs-toggle="modal" data-bs-target="#edit" data-id="@p.ID_PROFISSIONAL.ID"><i class="bi bi-pencil-square icon-portfolio"></i> Editar perfil</a>
+                            <a class="px-4 botao d-block" style="margin-right: 8px" asp-controller="Profissionais" asp-action="CadastroAgenda"><i class="bi bi-pencil-square icon-portfolio"></i> Cadastrar agenda</a>
+                        </p>
+                        <p>
+                            <a class="px-4 botao d-block" data-bs-toggle="modal" data-bs-target="#edit" data-id="@p.ID_PROFISSIONAL.ID"><i class="bi bi-pencil-square icon-portfolio"></i> Editar perfil</a>
                         </p>
                         <br />
 
@@ -102,7 +105,7 @@
                         <br>
                         <p>
                             @*CONTINUAR PROCESSO AGENDAMENTO*@
-                            <a asp-controller="" asp-action="" class="mb-3 w-100 btn btn-rounded-1 botao">Agendar consulta</a>
+                            <a asp-controller="Cliente" asp-action="Agendamento" asp-route-id="@p.ID_PROFISSIONAL.ID" class="mb-3 w-100 btn btn-rounded-1 botao">Agendar consulta</a>
                         </p>
                     </div>
                 </div>
@@ -142,6 +145,8 @@
                     {
                         @if (@id_profissional == p.ID_PROFISSIONAL.ID)
                         {
+                            <p>id profissional parametro: @id_profissional</p>
+                            <p>id profissional lista: @p.ID_PROFISSIONAL.ID</p>
                             <form asp-controller="Profissionais" asp-action="SalvarEdicao" method="post" enctype="multipart/form-data">
                                 <div class="form-group my-2">
                                     <label>ID do Profissional</label>

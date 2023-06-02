@@ -20,10 +20,14 @@ namespace SerMais
             //conexão com o banco
             builder.Services.AddEntityFrameworkSqlServer()
                 .AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+
             builder.Services.AddScoped<IProfissionalRepositorio, ProfissionalRepositorio>();
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             builder.Services.AddScoped<IPortfolioRepositorio, PortfolioRepositorio>();
             builder.Services.AddScoped<IAgendaProfissionalRepositorio, AgendaProfissionalRepositorio>();
+            builder.Services.AddScoped<IAgendamentoRepositorio, AgendamentoRepositorio>();
+            builder.Services.AddScoped<IConsultaRepositorio, ConsultaRepositorio>();
+            builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 
             // Cors API
             builder.Services.AddCors(options =>
@@ -73,12 +77,28 @@ namespace SerMais
                 pattern: "{controller=Profissionais}/{action=Portfolio}/{id?}/{nome?}");
 
             app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Profissionais}/{action=Consultas}/{id?}/{nome?}");
+
+            app.MapControllerRoute(
                name: "default",
                pattern: "{controller=Login}/{action=RecuperarSenha}/{id?}/{hash?}");
 
             app.MapControllerRoute(
+               name: "default",
+               pattern: "{controller=Cliente}/{action=Agendamento}/{id?}");
+
+            app.MapControllerRoute(
                 name: "API Default",
-                pattern: "api/{controller=Agendamento}/{id?}");
+                pattern: "api/{controller=Agendamento}/{action=GetConsultas}/{id?}");
+
+            app.MapControllerRoute(
+               name: "API Default",
+               pattern: "api/{controller=Agendamento}/{action=GetConsultasProfissional}/{id?}");
+
+            app.MapControllerRoute(
+              name: "API Default",
+              pattern: "api/{controller=Agendamento}/{action=GetConsultasPorIdParaOProfissional}/{id?}");
 
             app.Run();
         }

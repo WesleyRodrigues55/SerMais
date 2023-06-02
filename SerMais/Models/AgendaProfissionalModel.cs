@@ -16,7 +16,9 @@ namespace SerMais.Models
 
         public string DIA { get; set; }
 
-        public int ATIVO { get; set; }
+        public string REPETE { get; set; }
+
+        public int ATIVO { get; set; } = 1;
         public ProfissionalModel ID_PROFISSIONAL { get; set; }
 
     }

@@ -1,0 +1,360 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+@model AgendaClienteViewModel
+
+@{
+    var id_profissional = ViewData["id"] as int?;
+}
+
+@section CSS {
+    <link rel="stylesheet" href="~/css/portfolio.css" />
+}
+
+@Html.Partial("_Navegacao")
+
+<main class="container my-5 border p-3">
+    <h1>Confira seu agendamento</h1>
+    <hr />
+     <div class="row">
+     @*Informações abaixo vindo do banco*@
+        @if (Model != null && Model.Portfolios.Any())
+        {
+            foreach (PortfolioModel p in Model.Portfolios)
+            {
+                <div class="col-12 col-md-3 col-lg-2 box-img-profissional">
+                    <img class="img-profissional" src="~/img/profiles/@p.IMAGEM_PROFILE" alt="imagem do profissional" />
+                </div>
+                <div class="col-12 col-md-9 col-lg-10  py-2 box-about-profissional">
+                    <h2>@p.ID_PROFISSIONAL.NOME_COMPLETO</h2>
+                    <div class="">
+                        <h5>R$ @p.VALOR_CONSULTA</h5>
+                        <p>
+                            <i class="bi bi-currency-dollar icon-portfolio"></i><b> Pague: </b>@p.FORMAS_PAGAMENTO
+                        </p>
+                    </div>
+                    <p><i class="bi bi-alarm icon-portfolio"></i><b> Duração da sessão: </b>@p.DURACAO_SESSAO</p>
+                    <p><i class="bi bi-people-fill icon-portfolio"></i><b> Atende: </b>@p.ATENDE_CONSULTA</p>
+                    <p>
+                        <i class="bi bi-telephone-fill icon-portfolio"></i> @p.TELEFONE - 
+                        <i class="bi bi-whatsapp icon-portfolio"></i> @p.CELULAR -
+                        <i class="bi bi-envelope-fill icon-portfolio"></i> @p.EMAIL
+                    </p>
+                </div>
+            }
+        }
+    </div>
+    <hr />
+
+     @if (TempData["MensagemSucesso"] != null)
+        {
+            <div class="alert alert-success" role="alert" id="mensagem">
+                <p>@TempData["MensagemSucesso"]</p>
+            </div>
+        }
+    @if (TempData["MensagemClienteExiste"] != null)
+    {
+        <div class="alert alert-warning" role="alert" id="mensagem">
+            <p>@TempData["MensagemClienteExiste"] </p>
+            <p>Insira apenas o e-mail novamente e faça a seleção do horário, e clique em "Agendar Consulta"</p>
+        </div>
+    }
+
+
+    <div class="w3-bar w3-black">
+        <button class="mb-3 px-4 btn btn-rounded-1 tablink bg-green" onclick="openTab(event,'cadastrar')">Cadastrar</button>
+        <button class="mb-3 px-4 btn btn-rounded-1 tablink" onclick="openTab(event,'agendarPorEmail')">Já é cliente e já tem um registro? clique aqui e realize outra consulta sem realizar cadastro.</button>
+    </div>
+
+    <div class="agendamento" id="cadastrar">
+    @*Form caso não haja um e-mail na base de dados*@
+        <form asp-controller="Cliente" asp-action="AgendarConsulta" method="post" class="form-completo">
+
+ 
+            <p><b>Selecione o dia e horário da consulta</b></p>
+            <div class="row">
+                <div class="col-md-12 mt-12">
+                    <input class="form-control input-form input-login" type="hidden" id="id_profissional" name="id_profissional" value="@id_profissional" readonly>
+                </div>
+                <div class="col-md-3 mt-3">
+                    <label>Data:</label>
+                    <input class="form-control input-form input-login" type="text" id="data" name="DIA" required>
+                    <p style="font-size: 12px; color: red;" id="retorno-erro"></p>
+                </div>
+                <div class="col-md-9 mt-3">
+                    <div id="horarios-disponiveis-partial"></div>
+                </div>
+                <div class="col-md-4 my-3">
+                    <button type="button" class="mb-3 px-4 btn btn-rounded-1 botao" id="pesquisar-horarios">Pesquisar horários disponíveis</button>
+                </div>
+
+                <hr />
+            </div>
+        
+            <p><b>Dados Pessoas</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>Nome completo</label>
+                    <input type="text" asp-for="@Model.Cliente.NOME_COMPLETO" class="form-control input-form input-login" placeholder="Nome completo..." required />
+                </div>
+                <div class="col-md-6 my-2">
+                    <label>E-mail</label>
+                    <input type="email" asp-for="@Model.Cliente.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." required />
+                </div>
+                    <div class="col-md-6 my-2">
+                    <label>Data de nascimento</label>
+                    <input type="date" asp-for="@Model.Cliente.DT_NASCIMENTO" class="form-control input-form input-login" required />
+                </div>
+                    <div class="col-md-6 my-2">
+                    <label>Celular</label>
+                    <input type="text" asp-for="@Model.Cliente.TELEFONE" class="form-control input-form input-login" placeholder="Celular..." required />
+                </div>
+                    <div class="col-md-6 my-2">
+                    <label>CPF</label>
+                    <input type="text" asp-for="@Model.Cliente.CPF" class="form-control input-form input-login" placeholder="CPF..." required />
+                </div>
+            </div>
+            @*end row*@
+            <hr />
+             <p><b>A consulta</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>Queixa</label>
+                    <textarea rows="5" asp-for="@Model.Consulta.QUEIXA" class="form-control input-form input-login" placeholder="Explique o porque precisa dessa consulta para que o profissional fique por dentro do seu caso..." required></textarea>
+                </div>
+                <div class="col-md-12 mt-3 d-flex">
+                    <input class="form-check-input" type="radio" name="tipo-reuniao" value="online" asp-for="@Model.Consulta.TIPO_REUNIAO" checked>
+                    <label class="mx-2">Reunião Online:</label>
+                </div>
+                <div class="col-md-12 mt-3 d-flex">
+                    <input class="form-check-input" type="radio" name="tipo-reuniao" value="presencial" asp-for="@Model.Consulta.TIPO_REUNIAO">
+                    <label class="mx-2">Reunião Presencial:</label>
+                </div>
+            </div>
+            @*end row*@
+
+            <div class="mt-4">
+                <input class="mb-3 w-100 btn btn-rounded-1 botao" id="botao" type="submit" value="Agendar consulta" />
+            </div>
+
+        </form>
+
+        @*Form caso haja um e-mail na base de dados*@
+        <form asp-controller="Cliente" asp-action="AgendarConsultaEmailExistente" method="post" style="display: none" class="form-com-email">
+
+            <p><b>Selecione o dia e horário da consulta</b></p>
+            <div class="row">
+                <div class="col-md-12 mt-12">
+                    <input class="form-control input-form input-login" type="hidden" id="id_profissional" name="id_profissional" value="@id_profissional" readonly>
+                </div>
+                <div class="col-md-3 mt-3">
+                    <label>Data:</label>
+                    <input class="form-control input-form input-login" type="text" id="data" name="DIA" required>
+                    <p style="font-size: 12px; color: red;" id="retorno-erro"></p>
+                </div>
+                <div class="col-md-9 mt-3">
+                    <div id="horarios-disponiveis-partial-2"></div>
+                </div>
+                <div class="col-md-4 my-3">
+                    <button type="button" class="mb-3 px-4 btn btn-rounded-1 botao" id="pesquisar-horarios-2">Pesquisar horários disponíveis</button>
+                </div>
+
+                <hr />
+            </div>
+
+            <p><b>Dados Pessoas</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>E-mail</label>
+                    <input type="email" asp-for="@Model.Cliente.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." required />
+                </div>
+            </div>
+            @*end row*@
+            <hr />
+            <p><b>A consulta</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>Queixa</label>
+                    <textarea rows="5" asp-for="@Model.Consulta.QUEIXA" class="form-control input-form input-login" placeholder="Explique o porque precisa dessa consulta para que o profissional fique por dentro do seu caso..." required></textarea>
+                </div>
+                <div class="col-md-12 mt-3 d-flex">
+                    <input class="form-check-input" type="radio" name="tipo-reuniao" value="online" asp-for="@Model.Consulta.TIPO_REUNIAO" checked>
+                    <label class="mx-2">Reunião Online:</label>
+                </div>
+                <div class="col-md-12 mt-3 d-flex">
+                    <input class="form-check-input" type="radio" name="tipo-reuniao" value="presencial" asp-for="@Model.Consulta.TIPO_REUNIAO">
+                    <label class="mx-2">Reunião Presencial:</label>
+                </div>
+            </div>
+            @*end row*@
+
+            <div class="mt-4">
+                <input class="mb-3 w-100 btn btn-rounded-1 botao" id="botao" type="submit" value="Agendar consulta" />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="agendamento" id="agendarPorEmail" style="display: none;">
+        <form asp-controller="Cliente" asp-action="AgendarConsultaEmailExistente" method="post">
+
+            <p><b>Selecione o dia e horário da consulta</b></p>
+            <div class="row">
+                <div class="col-md-12 mt-12">
+                    <input class="form-control input-form input-login" type="hidden" id="id_profissional" name="id_profissional" value="@id_profissional" readonly>
+                </div>
+                <div class="col-md-3 mt-3">
+                    <label>Data:</label>
+                    <input class="form-control input-form input-login" type="text" id="data" name="DIA" required>
+                    <p style="font-size: 12px; color: red;" id="retorno-erro"></p>
+                </div>
+                <div class="col-md-9 mt-3">
+                    <div id="horarios-disponiveis-partial-3"></div>
+                </div>
+                <div class="col-md-4 my-3">
+                    <button type="button" class="mb-3 px-4 btn btn-rounded-1 botao" id="pesquisar-horarios-3">Pesquisar horários disponíveis</button>
+                </div>
+
+                <hr />
+            </div>
+
+            <p><b>Seu E-mail</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>E-mail</label>
+                    <input type="email" asp-for="@Model.Cliente.EMAIL" class="form-control input-form input-login" placeholder="E-mail..." required />
+                </div>
+            </div>
+            @*end row*@
+            <hr />
+            <p><b>A consulta</b></p>
+            @*start row*@
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>Queixa</label>
+                    <textarea rows="5" asp-for="@Model.Consulta.QUEIXA" class="form-control input-form input-login" placeholder="Explique o porque precisa dessa consulta para que o profissional fique por dentro do seu caso..." required></textarea>
+                </div>
+                <div class="col-md-12 mt-3 d-flex">
+                    <input class="form-check-input" type="radio" name="tipo-reuniao" value="online" asp-for="@Model.Consulta.TIPO_REUNIAO" checked>
+                    <label class="mx-2">Reunião Online:</label>
+                </div>
+                <div class="col-md-12 mt-3 d-flex">
+                    <input class="form-check-input" type="radio" name="tipo-reuniao" value="presencial" asp-for="@Model.Consulta.TIPO_REUNIAO">
+                    <label class="mx-2">Reunião Presencial:</label>
+                </div>
+            </div>
+            @*end row*@
+
+            <div class="mt-4">
+                <input class="mb-3 w-100 btn btn-rounded-1 botao" id="botao" type="submit" value="Agendar consulta" />
+            </div>
+
+        </form>
+    </div>
+
+</main>
+
+@Html.Partial("_Rodape")
+
+@section Scripts {
+    <script>
+
+        function openTab(evt, agendaName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("agendamento");
+            for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" bg-green", "");
+            }
+            document.getElementById(agendaName).style.display = "block";
+            evt.currentTarget.className += " bg-green";
+        }
+
+        $(document).ready(function () {
+            $("#botao").click(function (event) {
+                if ($("#nao-disponivel").length) {
+                    event.preventDefault(); // Bloqueia o envio do formulário
+                    $("#retorno-erro").text("Altere a data para encontrar um horário disponível");
+                    document.getElementById("retorno-erro").scrollIntoView({ behavior: "smooth" });
+                }
+            });
+
+            $('#data').mask('9999/99/99');
+
+            $("#pesquisar-horarios").click(function (event) {
+                event.preventDefault();
+
+                var form = $(this).closest("form");
+                //var url = form.attr("action");
+                var url = "/Cliente/BuscarHorariosDisponiveis";
+                var data = form.serialize();
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (result) {
+                        $("#horarios-disponiveis-partial").html(result);
+                    }
+                });
+            });
+
+            $("#pesquisar-horarios-2").click(function (event) {
+                event.preventDefault();
+
+                var form = $(this).closest("form");
+                //var url = form.attr("action");
+                var url = "/Cliente/BuscarHorariosDisponiveis";
+                var data = form.serialize();
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (result) {
+                        $("#horarios-disponiveis-partial-2").html(result);
+                    }
+                });
+            });
+
+             $("#pesquisar-horarios-3").click(function (event) {
+                event.preventDefault();
+
+                var form = $(this).closest("form");
+                //var url = form.attr("action");
+                var url = "/Cliente/BuscarHorariosDisponiveis";
+                var data = form.serialize();
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    success: function (result) {
+                        $("#horarios-disponiveis-partial-3").html(result);
+                    }
+                });
+            });
+
+            if ($(".alert-success").length > 0) {
+                setTimeout(function () {
+                    $(".alert-success").slideUp(500);
+                }, 8000);
+            }
+            else if ($(".alert-warning").length > 0) {
+                $(".box-bloqueado").css("display", "none");
+                $(".form-com-email").show();
+                $(".form-completo").css("display", "none");
+                setTimeout(function () {
+                    $(".alert-warning").slideUp(500);             
+                }, 24000);
+            }
+
+        });
+    </script>
+}

@@ -26,9 +26,33 @@ main {
 dl, ol, ul {
     margin-bottom: 0px !important;
 }
+
+.bg-green {
+    background: #36AB82;
+    color: #fff
+}
+
+    .bg-green:focus {
+        outline: none;
+        border: 1px solid #3E514A;
+        box-shadow: 1px 1px 5px rgba(25,25,25, 0.25);
+    }
+
+    .bg-green:hover {
+        background-color: #329A76;
+        color: #FFF;
+        transition: all 0.5s;
+    }
 /*
     Tipografia
 */
+.text-limit {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
 h1 {
     font-size: 2.5rem;
     margin-bottom: 16px;
@@ -59,6 +83,14 @@ p, a, ul, li, span {
 
 a:hover {
     color: #36AB82;
+}
+
+.sucesso {
+    color: #36AB82;
+}
+
+.erro {
+    color: red;
 }
 
 /*
@@ -181,6 +213,18 @@ input[type=password]::-ms-clear {
     margin: 0 auto;
 }
 
+/*
+    CALENDAR
+*/
+
+.fc-button-group button {
+    background: #36AB82 !important;
+    border: 1px solid transparent !important;
+}
+
+.fc-button-group button:hover {
+    opacity: 0.8
+}
 /* 
     Media Queries
 */

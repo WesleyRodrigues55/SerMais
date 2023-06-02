@@ -2,7 +2,9 @@
 using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
+using SerMais.Models;
 using SerMais.Repositorio;
+using static System.Net.WebRequestMethods;
 
 namespace SerMais.Controllers
 {
@@ -27,6 +29,18 @@ namespace SerMais.Controllers
         public static string SubjectCreateAccount(string nome)
         {
             string assunto = $"Parabéns {nome} você acabou de criar uma conta na plataforma SerMais!";
+            return assunto;
+        }
+
+        public static string SubjectCreateConsultAccount(string nome)
+        {
+            string assunto = $"Parabéns {nome} você acabou de agendar um horário para uma consulta na plataforma SerMais!";
+            return assunto;
+        }
+
+        public static string SubjectCreateConsultProfissionalAccount(string nome)
+        {
+            string assunto = $"Parabéns {nome} um paciente acabou de agendar um horário para uma consulta na plataforma SerMais!";
             return assunto;
         }
 
@@ -77,6 +91,43 @@ namespace SerMais.Controllers
                 $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
             return content;
         }
+
+        public static string ContentCreateConsultAccount(string nome, AgendaProfissionalModel agendaProfissional)
+        {
+            string content =
+                $"<h1>Parabéns {nome} você acabou de agendar um horário para uma consulta na plataforma SerMais!</h1>" +
+                $"<p>Informações sobre a consulta:</p>" +
+                $"<ul>" +
+                $"<li>Dia da consulta: {agendaProfissional.DIA}</li>" +
+                $"<li>Horário: {agendaProfissional.HORA_START}h até {agendaProfissional.HORA_END}h</li>" +
+                $"<li>Profissional: {agendaProfissional.ID_PROFISSIONAL.NOME_COMPLETO}</li>" +
+                $"</ul><br>" +
+                $"<p>Fique de olho em seu e-mail para caso o profissional escolhido entre em contato.</p>" +
+                $"<hr>" +
+                $"<p>A SerMais agradeçe pela sua preferência e paciência.</p>" +
+                $"<hr>" +
+                $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
+            return content;
+        }
+
+        public static string ContentCreateConsultProfissionalAccount(string nome, AgendaProfissionalModel agendaProfissional, ClienteModel cliente)
+        {
+            string content =
+                $"<h1>Parabéns {nome} um paciente acabou de agendar um horário para uma consulta na plataforma SerMais!</h1>" +
+                $"<p>Informações sobre a consulta:</p>" +
+                $"<ul>" +
+                $"<li>Dia da consulta: {agendaProfissional.DIA}</li>" +
+                $"<li>Horário: {agendaProfissional.HORA_START}h até {agendaProfissional.HORA_END}h</li>" +
+                $"<li>E-mail para contato do paciente: {cliente.EMAIL}</li>" +
+                $"</ul><br>" +
+                $"<p>Saiba mais sobre o paciente que realizou a consulta, acessando o seu perfil na paltaforma SerMais.</p>" +
+                $"<hr>" +
+                $"<p>A SerMais agradeçe pela sua preferência e paciência.</p>" +
+                $"<hr>" +
+                $"<p>Siga nossos canais de atendimento e nossas redes sociais abaixo:</p>";
+            return content;
+        }
+
         public static string ContentRetrieveAccount(string nome, int id, string token)
         {
             string content =
@@ -157,6 +208,26 @@ namespace SerMais.Controllers
             var subject = SubjectCreateAccount(nome);
             var content = ContentCreateAccount(nome);
             var message = ContentMessageEmail(nome, email, subject, content);
+            Smtp(message);
+
+            return "Email enviado com sucesso!";
+        }
+
+        public static string SendCreateConsultAccount(string email, AgendaProfissionalModel agendaProfissional)
+        {
+            var subject = SubjectCreateConsultAccount("");
+            var content = ContentCreateConsultAccount("", agendaProfissional);
+            var message = ContentMessageEmail("", email, subject, content);
+            Smtp(message);
+
+            return "Email enviado com sucesso!";
+        }
+
+        public static string SendCreateConsultProfissionalAccount(AgendaProfissionalModel agendaProfissional, ClienteModel cliente)
+        {
+            var subject = SubjectCreateConsultProfissionalAccount(agendaProfissional.ID_PROFISSIONAL.NOME);
+            var content = ContentCreateConsultProfissionalAccount(agendaProfissional.ID_PROFISSIONAL.NOME, agendaProfissional, cliente);
+            var message = ContentMessageEmail("", agendaProfissional.ID_PROFISSIONAL.EMAIL, subject, content);
             Smtp(message);
 
             return "Email enviado com sucesso!";

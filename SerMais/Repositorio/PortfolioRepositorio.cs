@@ -41,6 +41,26 @@ namespace SerMais.Repositorio
             return portfolio;
         }
 
+        public PortfolioModel SalvarComImagem(PortfolioModel portfolio)
+        {
+            var p = _bancoContext.PORTFOLIO.FirstOrDefault(p => p.ID_PROFISSIONAL == portfolio.ID_PROFISSIONAL);
+            p.ESPECIALIDADE = portfolio.ESPECIALIDADE;
+            p.IMAGEM_PROFILE = portfolio.IMAGEM_PROFILE;
+            p.VALOR_CONSULTA = portfolio.VALOR_CONSULTA;
+            p.FORMAS_PAGAMENTO = portfolio.FORMAS_PAGAMENTO;
+            p.DURACAO_SESSAO = portfolio.DURACAO_SESSAO;
+            p.ATENDE_CONSULTA = portfolio.ATENDE_CONSULTA;
+            p.TELEFONE = portfolio.TELEFONE;
+            p.CELULAR = portfolio.CELULAR;
+            p.EMAIL = portfolio.EMAIL;
+            p.FORMACAO = portfolio.FORMACAO;
+            p.SOBRE = portfolio.SOBRE;
+            p.NOME_PROFISSIONAL = portfolio.NOME_PROFISSIONAL;
+            _bancoContext.SaveChanges();
+
+            return portfolio;
+        }
+
         public PortfolioModel Salvar(PortfolioModel portfolio)
         {
             _bancoContext.Entry(portfolio).State = EntityState.Added;
@@ -129,6 +149,5 @@ namespace SerMais.Repositorio
 
             return portfolios;
         }
-
     }
 }

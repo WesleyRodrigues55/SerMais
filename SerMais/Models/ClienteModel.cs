@@ -13,9 +13,8 @@ namespace SerMais.Models
         [StringLength(100)]
         public string EMAIL { get; set; }
 
-        [StringLength(64)]
-        public string SENHA { get; set; }
-
+        [StringLength(14)]
+        public string CPF { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DT_NASCIMENTO { get; set; }
@@ -23,6 +22,6 @@ namespace SerMais.Models
         [StringLength(50)]
         public string TELEFONE { get; set; }
 
-        public int ATIVO { get; set; }
+        public int ATIVO { get; set; } = 1;
     }
 }

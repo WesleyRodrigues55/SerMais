@@ -1,0 +1,26 @@
+Claro! Aqui está um resumo dos processos envolvidos desde a ideia do modal até o agendamento da consulta:
+
+Exibição do calendário: Ao carregar a página, exiba um calendário usando o FullCalendar. O calendário irá mostrar os dias e as horas disponíveis para agendamento.
+
+Clique em um dia: Quando o usuário clicar em um dia no calendário, acione um evento para exibir um modal.
+
+Modal de agendamento: No modal, exiba os horários disponíveis para o dia selecionado. Esses horários podem ser obtidos a partir de uma requisição para a API que retorna os horários disponíveis com base nas informações armazenadas no banco de dados.
+
+Seleção do horário: Permita que o usuário selecione um horário disponível no modal. Ao selecionar o horário, armazene as informações relevantes, como a data, o horário e o profissional associado, no banco de dados.
+
+Vinculação do cliente: Durante o processo de criação da conta do cliente, solicite as informações necessárias e armazene-as no banco de dados. Nesse momento, você também pode associar o cliente ao profissional selecionado e à data/horário da consulta.
+
+Confirmação do agendamento: Após o usuário selecionar o horário e fornecer as informações necessárias na criação da conta, exiba uma confirmação do agendamento, mostrando os detalhes da consulta.
+
+Gerenciamento do profissional: No dashboard do profissional, forneça uma interface para que ele possa visualizar e gerenciar as consultas agendadas. Isso inclui a capacidade de desmarcar consultas, caso necessário.
+
+Notificações e lembretes: Implemente notificações e lembretes para manter o cliente e o profissional informados sobre as consultas agendadas. Isso pode ser feito por meio de e-mails, mensagens de texto ou outros meios de comunicação preferidos pelos usuários.
+
+Lembre-se de adaptar esses passos de acordo com a estrutura e os requisitos específicos do seu projeto.
+
+
+
+
+       var url = new URL(window.location.href);
+    var parts = url.split("/");
+    var id = parts[parts.length - 2];

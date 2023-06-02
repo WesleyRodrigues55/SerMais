@@ -4,7 +4,11 @@
 }
 
 .img-profissional {
-    width: 260px !important;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin: 0 auto;
 }
 
 .box-about-profissional {
@@ -24,5 +28,13 @@
 
     .box-about-profissional {
         text-align: center;
+    }
+}
+
+@media screen and (max-width: 991px) {
+
+    .img-profissional {
+        width: 300px;
+        height: 300px;
     }
 }

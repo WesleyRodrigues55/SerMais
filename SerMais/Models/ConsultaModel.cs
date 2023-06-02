@@ -8,17 +8,12 @@ namespace SerMais.Models
         public int ID { get; set; }
         public string QUEIXA { get; set; }
 
-        public DateTime DATA_START { get; set; }
-        public DateTime DATA_END { get; set; }
-
         [StringLength(50)]
-        public string STATUS { get; set; }
+        public string STATUS { get; set; } = "PENDENTE";
 
-        public string LINK_REUNIAO { get; set; }
+        public string TIPO_REUNIAO { get; set; }
 
-        [StringLength(50)]
-        public string FORMA_DE_PAGAMENTO { get; set; }
-
-        public AgendamentoModel ID_AGENDAMENTO { get; set; }
+        public AgendaProfissionalModel ID_AGENDA_PROFISSIONAL { get; set; }
+        public ClienteModel ID_CLIENTE { get; set; }
     }
 }
