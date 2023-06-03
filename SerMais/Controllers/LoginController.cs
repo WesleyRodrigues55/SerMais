@@ -106,12 +106,16 @@ namespace SerMais.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(ProfissionalModel profissional, UsuarioModel usuario)
+        public IActionResult Cadastrar(bool politica, ProfissionalModel profissional, UsuarioModel usuario)
         {
+            if (politica)
+                usuario.POLITICA = 1;
+            else
+                usuario.POLITICA = 0;
+
             if (profissional.COMPLEMENTO == "" || profissional.COMPLEMENTO == null)
-            {
                 profissional.COMPLEMENTO = "nulo";
-            }
+
             profissional.NOME_COMPLETO = profissional.NOME + " " + profissional.SOBRENOME;
             if (_profissionalRepositorio.BuscaCrp(profissional.CRP) == null)
             {
